@@ -500,7 +500,7 @@ export default (Module) => {
                   return;
                 }
                 try {
-                  await this.sendHttpResponse<S = object | ResourceInterface>(context, result, resource, opts);
+                  await this.sendHttpResponse<object | ResourceInterface>(context, result, resource, opts);
                   resolve();
                 } catch (e) {
                   reject(e);
