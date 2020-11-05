@@ -1,8 +1,9 @@
 const { expect, assert } = require('chai');
-const LeanES = require("../../../src/leanes/index.js").default;
+const RestfulAddon = require('../../src/index.js');
+const LeanES = require('leanes/src/leanes').default;
 const {
   CoreObject,
-  initialize, partOf, nameBy, meta, action
+  initialize, partOf, nameBy, meta, plugin
 } = LeanES.NS;
 
 describe('action', () => {
@@ -11,6 +12,7 @@ describe('action', () => {
       expect(() => {
 
         @initialize
+        @plugin(RestfulAddon)
         class Test extends LeanES {
           @nameBy static __filename = 'Test';
           @meta static object = {};
@@ -21,7 +23,7 @@ describe('action', () => {
         class SubTest extends LeanES.NS.CoreObject {
           @nameBy static __filename = 'SubTest';
           @meta static object = {};
-          @action test() {}
+          @Test.NS.action test() {}
         }
         assert.equal(SubTest.metaObject.parent.data.instanceMethods.test, SubTest.new().test);
         assert.equal(SubTest.metaObject.parent.data.actions.test, SubTest.new().test)
@@ -41,7 +43,7 @@ describe('action', () => {
         class SubTest extends LeanES.NS.CoreObject {
           @nameBy static __filename = 'SubTest';
           @meta static object = {};
-          @action static test() {}
+          @Test.NS.action static test() {}
         }
       }).to.throw(Error);
     });

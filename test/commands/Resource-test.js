@@ -3,10 +3,11 @@ const sinon = require('sinon');
 const _ = require('lodash');
 const EventEmitter = require('events');
 const httpErrors = require('http-errors');
-const LeanES = require("../../../src/leanes/index.js").default;
+const RestfulAddon = require('../../src/index.js');
+const LeanES = require('leanes/src/leanes').default;
 const {
   Resource,
-  initialize, partOf, nameBy, meta, constant, mixin, property, method, attribute, action
+  initialize, partOf, nameBy, meta, constant, mixin, property, method, attribute, plugin
 } = LeanES.NS;
 
 const hasProp = {}.hasOwnProperty;
@@ -23,6 +24,7 @@ describe('Resource', () => {
     it('should get key name using entity name', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -31,7 +33,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -45,6 +47,7 @@ describe('Resource', () => {
     it('should get item name using entity name', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -53,7 +56,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -67,6 +70,7 @@ describe('Resource', () => {
     it('should get list name using entity name', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -75,7 +79,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -89,6 +93,7 @@ describe('Resource', () => {
     it('should get collection name using entity name', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -97,7 +102,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -116,6 +121,7 @@ describe('Resource', () => {
       const TEST_FACADE = 'TEST_FACADE_001';
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -124,7 +130,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -181,7 +187,8 @@ describe('Resource', () => {
   //     };
 
   //     @initialize
-  //     class Test extends LeanES {
+  //     @plugin(RestfulAddon)
+      class Test extends LeanES {
   //       @nameBy static __filename = 'Test';
   //       @meta static object = {};
   //       @constant ROOT = __dirname;
@@ -189,7 +196,7 @@ describe('Resource', () => {
 
   //     @initialize
   //     @partOf(Test)
-  //     class TestResource extends LeanES.NS.Resource {
+  //     class TestResource extends Test.NS.Resource {
   //       @nameBy static __filename = 'TestResource';
   //       @meta static object = {};
   //       @property entityName = 'TestEntity';
@@ -237,7 +244,8 @@ describe('Resource', () => {
   //       };
 
   //       @initialize
-  //       class Test extends LeanES {
+  //       @plugin(RestfulAddon)
+      class Test extends LeanES {
   //         @nameBy static __filename = 'Test';
   //         @meta static object = {};
   //         @constant ROOT = __dirname;
@@ -246,7 +254,7 @@ describe('Resource', () => {
   //       @initialize
   //       @mixin(LeanES.NS.QueryableResourceMixin)
   //       @partOf(Test)
-  //       class TestResource extends LeanES.NS.Resource {
+  //       class TestResource extends Test.NS.Resource {
   //         @nameBy static __filename = 'TestResource';
   //         @meta static object = {};
   //         @property entityName = 'TestEntity';
@@ -301,6 +309,7 @@ describe('Resource', () => {
     it('should parse action params as arguments', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -309,7 +318,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -328,6 +337,7 @@ describe('Resource', () => {
     it('should get resource query', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -336,7 +346,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -364,6 +374,7 @@ describe('Resource', () => {
     it('should get resource record ID', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -372,7 +383,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -398,6 +409,7 @@ describe('Resource', () => {
     it('should get body', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -406,7 +418,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -444,6 +456,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(TEST_FACADE);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -452,7 +465,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -515,6 +528,7 @@ describe('Resource', () => {
     it('should get body with ID', () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -523,7 +537,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -571,6 +585,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -595,7 +610,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -681,7 +696,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -733,6 +748,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -757,7 +773,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -847,7 +863,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -897,6 +913,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -921,7 +938,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -1002,6 +1019,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1026,7 +1044,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -1132,6 +1150,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1155,7 +1174,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -1259,7 +1278,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -1302,6 +1321,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1321,7 +1341,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -1440,7 +1460,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -1515,6 +1535,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1527,11 +1548,11 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
-        @action test() { }
+        @Test.NS.action test() { }
       }
 
       @initialize
@@ -1586,7 +1607,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1626,6 +1647,7 @@ describe('Resource', () => {
     it('should get owner ID for body', async () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1634,7 +1656,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -1685,6 +1707,7 @@ describe('Resource', () => {
     it('should omit owner ID from body', async () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1693,7 +1716,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -1749,6 +1772,7 @@ describe('Resource', () => {
     it('should update query if caller user is not admin', async () => {
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1757,7 +1781,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -1818,6 +1842,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1830,7 +1855,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -1888,7 +1913,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1992,6 +2017,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2004,7 +2030,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -2062,7 +2088,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2150,6 +2176,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2162,7 +2189,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -2220,7 +2247,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2316,6 +2343,7 @@ describe('Resource', () => {
       });
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2349,10 +2377,10 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
-        @action test(context) {
+        @Test.NS.action test(context) {
           testAction(context);
         }
       }
@@ -2408,7 +2436,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -2437,6 +2465,7 @@ describe('Resource', () => {
       facade = LeanES.NS.Facade.getInstance(MULTITON_KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2495,7 +2524,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
       }
@@ -2545,6 +2574,7 @@ describe('Resource', () => {
       const testAction = sinon.spy(function () { });
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2557,10 +2587,10 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
-        @action test() {
+        @Test.NS.action test() {
           testAction();
         }
       }
@@ -2617,7 +2647,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';

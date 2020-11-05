@@ -103,7 +103,6 @@ describe('Migration', () => {
       //   return this.createCollection('collectionName', {
       //     prop: 'prop'
       //   });
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -222,8 +221,6 @@ describe('Migration', () => {
       });
       facade.registerProxy(collection);
       // BaseMigration.change(() => {
-      //   this.addField('collectionName', 'attr1', 'number');
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -278,11 +275,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.addIndex('collectionName', ['attr1', 'attr2'], {
-      //     type: "hash"
-      //   });
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -344,11 +336,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.addTimestamps('collectionName', {
-      //     prop: 'prop'
-      //   });
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -408,11 +395,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.changeCollection('collectionName', {
-      //     prop: 'prop'
-      //   });
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -470,9 +452,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.changeField('collectionName', 'attr1', 'string');
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -525,9 +504,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.renameField('collectionName', 'oldAttrName', 'newAttrName');
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -580,9 +556,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.renameIndex('collectionName', 'oldIndexname', 'newIndexName');
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -635,9 +608,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.renameCollection('oldCollectionName', 'newCollectionName');
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -745,9 +715,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.dropEdgeCollection('collectionName1', 'collectionName2');
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -800,9 +767,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.removeField('collectionName', 'attr2');
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -859,13 +823,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.removeIndex('collectionName', ['attr1', 'attr2'], {
-      //     type: "hash",
-      //     unique: true,
-      //     sparse: false
-      //   });
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -929,11 +886,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(() => {
-      //   this.removeTimestamps('collectionName', {
-      //     prop: 'prop'
-      //   });
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -996,13 +948,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // const reversibleArg = co.wrap(async function (dir) {
-      //   await dir.up(co.wrap(async function () { }));
-      //   await dir.down(co.wrap(async function () { }));
-      // });
-      // BaseMigration.change(() => {
-      //   this.reversible(reversibleArg);
-      // });
       const migration = BaseMigration.new({
         type: 'Test::BaseMigration'
       }, collection);
@@ -1110,7 +1055,6 @@ describe('Migration', () => {
         delegate: 'BaseMigration'
       });
       facade.registerProxy(collection);
-      // BaseMigration.change(spyChange);
       assert.isTrue(spyChange.called);
     });
   });

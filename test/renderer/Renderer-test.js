@@ -1,16 +1,17 @@
 const { expect, assert } = require('chai');
 const _ = require('lodash');
 const sinon = require('sinon');
-const LeanES = require("../../../src/leanes/index.js").default;
+const RestfulAddon = require('../../src/index.js');
+const LeanES = require('leanes/src/leanes').default;
 const {
   initialize, partOf, nameBy, meta, constant, mixin, property, method, map
 } = LeanES.NS;
 
-describe('ResourceRenderer', () => {
+describe('Renderer', () => {
   describe('.new', () => {
     it('should create renderer instance', () => {
       expect(() => {
-        const renderer = LeanES.NS.ResourceRenderer.new();
+        const renderer = LeanES.NS.Renderer.new();
         renderer.setName('TEST_RENDERER');
       }).to.not.throw(Error);
     });
@@ -25,7 +26,8 @@ describe('ResourceRenderer', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
-      @mixin(LeanES.NS.TemplatableModuleMixin)
+      @plugin(RestfulAddon)
+      @mixin(Test.NS.TemplatableModuleMixin)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -53,7 +55,7 @@ describe('ResourceRenderer', () => {
       @initialize
       @mixin(LeanES.NS.QueryableResourceMixin)
       @partOf(Test)
-      class TestResource extends LeanES.NS.Resource {
+      class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
         @property entityName = 'TestRecord'
@@ -83,7 +85,7 @@ describe('ResourceRenderer', () => {
 
       @initialize
       @partOf(Test)
-      class TestRenderer extends LeanES.NS.ResourceRenderer {
+      class TestRenderer extends Test.NS.Renderer {
         @nameBy static __filename = 'TestRenderer';
         @meta static object = {};
       }
@@ -118,7 +120,7 @@ describe('ResourceRenderer', () => {
         test: 'test1',
         data: 'data1'
       };
-      const renderer = LeanES.NS.ResourceRenderer.new('TEST_RENDERER');
+      const renderer = Test.NS.Renderer.new('TEST_RENDERER');
       facade.registerProxy(renderer);
       const renderResult = await renderer.render.call(renderer, {}, data, {}, {});
       assert.equal(renderResult, data, 'Data not rendered');
@@ -131,6 +133,7 @@ describe('ResourceRenderer', () => {
         lastName: 'Doe'
       };
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -138,7 +141,7 @@ describe('ResourceRenderer', () => {
 
       @initialize
       @partOf(Test)
-      class TestRenderer extends LeanES.NS.ResourceRenderer {
+      class TestRenderer extends Test.NS.Renderer {
         @nameBy static __filename = 'TestRenderer';
         @meta static object = {};
         @method render(ctx, aoData, resource, aoOptions) {

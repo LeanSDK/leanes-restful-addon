@@ -4,7 +4,8 @@ const { expect, assert } = require('chai');
 const sinon = require('sinon');
 const _ = require('lodash');
 const httpErrors = require('http-errors');
-const LeanES = require("../../../src/leanes/index.js").default;
+const RestfulAddon = require('../../src/index.js');
+const LeanES = require('leanes/src/leanes').default;
 const {
   initialize, partOf, nameBy, meta, constant, property
 } = LeanES.NS;
@@ -20,6 +21,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -39,7 +41,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -113,6 +115,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -132,7 +135,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -211,6 +214,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -230,7 +234,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -309,6 +313,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -328,7 +333,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -402,6 +407,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -421,7 +427,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -495,6 +501,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -514,7 +521,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -592,6 +599,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -611,7 +619,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER';
@@ -689,6 +697,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -708,7 +717,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -783,6 +792,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -802,7 +812,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -880,6 +890,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -899,7 +910,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -978,6 +989,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -997,7 +1009,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1075,6 +1087,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1094,7 +1107,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1178,6 +1191,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1197,7 +1211,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1275,6 +1289,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1294,7 +1309,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1385,6 +1400,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1404,7 +1420,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1496,6 +1512,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1515,7 +1532,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1605,6 +1622,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1624,7 +1642,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1714,6 +1732,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1733,7 +1752,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1805,6 +1824,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1824,7 +1844,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -1922,6 +1942,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1941,7 +1962,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2039,6 +2060,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2058,7 +2080,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2129,6 +2151,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2148,7 +2171,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2219,6 +2242,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2238,7 +2262,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2313,6 +2337,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2332,7 +2357,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2405,6 +2430,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2424,7 +2450,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2496,6 +2522,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2515,7 +2542,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2587,6 +2614,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2606,7 +2634,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2678,6 +2706,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2697,7 +2726,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2769,6 +2798,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2788,7 +2818,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -2866,6 +2896,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -2885,7 +2916,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3019,6 +3050,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3038,7 +3070,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3128,6 +3160,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3147,7 +3180,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3224,6 +3257,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3243,7 +3277,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3329,6 +3363,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3348,7 +3383,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3435,6 +3470,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3454,7 +3490,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3540,6 +3576,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3559,7 +3596,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3633,6 +3670,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3652,7 +3690,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3745,6 +3783,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3764,7 +3803,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3842,6 +3881,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3861,7 +3901,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -3951,6 +3991,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -3970,7 +4011,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -4049,6 +4090,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -4068,7 +4110,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -4143,6 +4185,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -4162,7 +4205,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -4258,6 +4301,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -4277,7 +4321,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -4354,6 +4398,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -4373,7 +4418,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -4450,6 +4495,7 @@ describe('Context', () => {
       facade = LeanES.NS.Facade.getInstance(KEY);
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -4469,7 +4515,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'
@@ -4551,6 +4597,7 @@ describe('Context', () => {
       const trigger = new EventEmitter();
 
       @initialize
+      @plugin(RestfulAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -4570,7 +4617,7 @@ describe('Context', () => {
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends LeanES.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
         @property routerName = 'TEST_SWITCH_ROUTER'

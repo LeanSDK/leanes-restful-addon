@@ -366,14 +366,7 @@ describe('RollbackCommand', () => {
         class TestMigration extends LeanES.NS.Migration {
           @nameBy static __filename = 'TestMigration';
           @meta static object = {};
-          // @method static findRecordByName() {
-          //   return Test.NS.TestMigration;
-          // }
           @method static change() {}
-          // constructor() {
-          //   super(...arguments);
-          //   this.type = 'Test::TestMigration';
-          // }
         }
       };
 

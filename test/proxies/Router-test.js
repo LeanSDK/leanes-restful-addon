@@ -1,7 +1,8 @@
 const { expect, assert } = require('chai');
 const sinon = require('sinon');
 const _ = require('lodash');
-const LeanES = require("../../../src/leanes/index.js").default;
+const RestfulAddon = require('../../src/index.js');
+const LeanES = require('leanes/src/leanes').default;
 const {
   Router,
   initialize, partOf, nameBy, meta, method, property, mixin, attribute, constant
