@@ -47,7 +47,7 @@ export default (Module) => {
   @injectable()
   @partOf(Module)
   class HttpResponse extends CoreObject implements HttpResponseInterface {
-    @nameBy static  __filename = __filename;
+    @nameBy static __filename = __filename;
     @meta static object = {};
 
     @property _res: object = null; // native response object
@@ -246,7 +246,7 @@ export default (Module) => {
     }
 
     @method is(...args: [string | Array]): ?(string | boolean) {
-      let [ types ] = args;
+      let [types] = args;
       if (!types) {
         return this.type || false;
       }
@@ -261,7 +261,7 @@ export default (Module) => {
     }
 
     @method 'set'(...args: [string | object]): ?any {
-      const [ field, val ] = args;
+      const [field, val] = args;
       if (2 === args.length) {
         if (_.isArray(val)) {
           this.res.setHeader(field, val.map(String));
