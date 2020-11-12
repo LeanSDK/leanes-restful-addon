@@ -21,7 +21,7 @@ export default (Module) => {
     Utils: { _ }
   } = Module.NS;
 
-  Module.definePatch(__filename, (BaseClass: Class<Facade>) => {
+  Module.definePatch(__filename, (BaseClass) => {
     @initializePatch
     class Patch extends BaseClass {
       @meta static object = {};

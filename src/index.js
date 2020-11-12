@@ -63,10 +63,11 @@ export type { HttpMediatorInterface } from './interfaces/HttpMediatorInterface';
 
 export default (Module) => {
   const {
+    Module: BaseModule,
     initializeMixin, meta, constant, method, patch, decorator, util
   } = Module.NS;
 
-  return ['RestfulAddon', (BaseClass: Class<Module.NS.Module>) => {
+  return ['RestfulAddon', (BaseClass: Class<BaseModule>) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};
