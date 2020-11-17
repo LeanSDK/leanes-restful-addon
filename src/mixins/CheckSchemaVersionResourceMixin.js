@@ -17,8 +17,8 @@ import type { CollectionInterface } from '../interfaces/CollectionInterface';
 
 export default (Module) => {
   const {
-    MIGRATIONS, MIGRATION_NAMES,
-    initializeMixin, meta, method, property,
+    MIGRATIONS,
+    initializeMixin, meta, method, property, inject,
     Utils: { assert }
   } = Module.NS;
 
@@ -27,10 +27,15 @@ export default (Module) => {
     class Mixin extends BaseClass {
       @meta static object = {};
 
-      @property _migrations: CollectionInterface = null;
+      @inject(`Factory<${MIGRATIONS}>`)
+      @property _migrationsFactory: () => CollectionInterface;
+
+      @property get _migrations(): CollectionInterface {
+        return this._migrationsFactory();
+      }
 
       @method async checkSchemaVersion(...args) {
-        const migrationNames = this.Module.NS[MIGRATION_NAMES];
+        const migrationNames = this.Module.NS.MIGRATION_NAMES;
         const [ lastMigration ] = slice.call(migrationNames, -1);
         if (lastMigration == null) {
           return args;
@@ -42,13 +47,6 @@ export default (Module) => {
           assert.fail('Code schema version is not equal current DB version');
         }
         return args;
-      }
-
-      constructor({
-        @inject(`Factory<${MIGRATIONS}>`) migrationsFactory: () => CollectionInterface
-      }) {
-        super(... arguments)
-        this._migrations = migrationsFactory()
       }
     }
     return Mixin;

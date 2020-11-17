@@ -26,7 +26,6 @@ export default (Module) => {
     Utils: { _ }
   } = Module.NS;
 
-
   @initialize
   @injectable()
   @partOf(Module)

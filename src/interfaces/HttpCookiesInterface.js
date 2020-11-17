@@ -27,6 +27,6 @@ export interface HttpCookiesInterface {
   setReqResOpts(
     req: object, res: object, opts: ?{|
       key: ?string, secure: ?boolean
-    |} = {}
+    |}
   ): void;
 }

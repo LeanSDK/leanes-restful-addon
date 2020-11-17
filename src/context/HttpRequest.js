@@ -31,17 +31,16 @@ import type { HttpRequestInterface } from '../interfaces/HttpRequestInterface';
 export default (Module) => {
   const {
     CoreObject,
-    ConfigurableMixin,
+    // ConfigurableMixin,
     assert,
     initialize, partOf, meta, property, method, nameBy, mixin, injectable,
     Utils: { _ }
   } = Module.NS;
 
-
   @initialize
   @injectable()
   @partOf(Module)
-  @mixin(ConfigurableMixin)
+  // @mixin(ConfigurableMixin)
   class HttpRequest extends CoreObject implements HttpRequestInterface {
     @nameBy static  __filename = __filename;
     @meta static object = {};
@@ -145,7 +144,9 @@ export default (Module) => {
     }
 
     @property get host(): string {
-      const { trustProxy } = this.configs;
+      const trustProxy = this.configs != null && this.configs.trustProxy != null
+        ? this.configs.trustProxy
+        : false;
       const host = trustProxy && this.get('X-Forwarded-Host') || this.get('Host');
       if (!host) return '';
       return host.split(/\s*,\s*/)[0];
@@ -207,7 +208,9 @@ export default (Module) => {
     }
 
     @property get protocol(): 'http' | 'https' {
-      const { trustProxy } = this.configs;
+      const trustProxy = this.configs != null && this.configs.trustProxy != null
+        ? this.configs.trustProxy
+        : false;
       if (this.socket != null ? this.socket.encrypted : undefined)
         return 'https';
       if (this.req.secure)
@@ -230,7 +233,9 @@ export default (Module) => {
 
     @property get ips(): string[] {
       // return [];
-      const { trustProxy } = this.configs;
+      const trustProxy = this.configs != null && this.configs.trustProxy != null
+        ? this.configs.trustProxy
+        : false;
       const value = this.get('X-Forwarded-For');
       if (trustProxy != null && value != null) {
         return value.split(/\s*,\s*/);
@@ -241,13 +246,15 @@ export default (Module) => {
 
     @property get subdomains(): string[] {
       // return [];
-      const { subdomainOffset:offset } = this.configs;
+      const offset = this.configs != null && this.configs.subdomainOffset != null
+        ? this.configs.subdomainOffset
+        : 2;
       const hostname = this.hostname;
       if (net.isIP(hostname) != 0) return [];
       return hostname
         .split('.')
         .reverse()
-        .slice(offset != null ? offset : 0)
+        .slice(offset)
     }
 
     @method accepts(...args: [?(string | Array)]): string | Array | boolean {

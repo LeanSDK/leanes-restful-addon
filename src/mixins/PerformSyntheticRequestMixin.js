@@ -22,7 +22,7 @@ import type { HttpMediatorInterface } from '../interfaces/HttpMediatorInterface'
 export default (Module) => {
   const {
     HTTP_MEDIATOR,
-    initializeMixin, meta, method, property,
+    initializeMixin, meta, method, property, inject,
   } = Module.NS;
 
   Module.defineMixin(__filename, (BaseClass) => {
@@ -30,7 +30,12 @@ export default (Module) => {
     class Mixin extends BaseClass {
       @meta static object = {};
 
-      @property _httpMediator: HttpMediatorInterface = null;
+      @inject(`Factory<${HTTP_MEDIATOR}>`)
+      @property _httpMediatorFactory: () => HttpMediatorInterface;
+
+      @property get _httpMediator(): HttpMediatorInterface {
+        return this._httpMediatorFactory();
+      }
 
       @method async perform<
         T = any, R = T, L = LegacyResponseInterface<AxiosResponse<T, R>>
@@ -38,13 +43,6 @@ export default (Module) => {
         if (this._httpMediator != null) {
           return await this._httpMediator.perform<T, R, L>(methodName, url, options);
         }
-      }
-
-      constructor({
-        @inject(`Factory<${HTTP_MEDIATOR}>`) httpMediatorFactory: () => HttpMediatorInterface
-      }) {
-        super(... arguments)
-        this._httpMediator = httpMediatorFactory()
       }
     }
     return Mixin;

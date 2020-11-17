@@ -31,7 +31,5 @@ export interface ResourceInterface {
 
   doAction(asAction: string, context: ContextInterface): Promise<?any>;
 
-  writeTransaction(asAction: string, aoContext: ContextInterface): Promise<boolean>;
-
   saveDelayeds(): Promise<void>;
 }

@@ -15,9 +15,8 @@
 
 import type { NotificationInterface } from '../interfaces/NotificationInterface';
 
-import type {
-  CollectionInterface, RecordInterface
-} from '@leansdk/leanes-mapper-addon/src';
+import type { CollectionInterface } from '../interfaces/CollectionInterface';
+import type { RecordInterface } from '../interfaces/RecordInterface';
 
 import type { ContextInterface } from '../interfaces/ContextInterface';
 import type { ResourceInterface } from '../interfaces/ResourceInterface';
@@ -104,7 +103,8 @@ export default (Module) => {
         : `${inflect.pluralize(inflect.camelize(this.entityName))}Collection`;
     }
 
-    @property @inject('CollectionFactory<*>') _collectionFactory: () => CollectionInterface<D>;
+    @inject('CollectionFactory<*>')
+    @property _collectionFactory: () => CollectionInterface<D>;
 
     @property get collection(): CollectionInterface<D> {
       return this.entityName == NON_OVERRIDDEN
@@ -161,13 +161,15 @@ export default (Module) => {
 
     @action async 'delete'(): Promise<void> {
       this.collection != null
-        ? await this.collection.delete(this.recordId);
+        ? await this.collection.delete(this.recordId)
+        : null;
       this.context.status = 204;
     }
 
     @action async destroy(): Promise<void> {
       this.collection != null
-        ? await this.collection.destroy(this.recordId);
+        ? await this.collection.destroy(this.recordId)
+        : null;
       this.context.status = 204;
     }
 

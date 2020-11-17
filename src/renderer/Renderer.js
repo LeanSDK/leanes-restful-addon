@@ -35,7 +35,12 @@ export default (Module) => {
     @nameBy static  __filename = __filename;
     @meta static object = {};
 
-    @property _appMediator: MediatorInterface = null;
+    @inject(`Factory<${APPLICATION_MEDIATOR}>`)
+    @property _appMediatorFactory: () => MediatorInterface;
+
+    @property get _appMediator(): MediatorInterface {
+      return this._appMediatorFactory();
+    }
 
     @method async render<
       T = any, S = ResourceInterface, R = ?(RendererListResultT | RendererItemResultT | any)
@@ -63,13 +68,6 @@ export default (Module) => {
       } else {
         return aoData;
       }
-    }
-
-    constructor({
-      @inject(`Factory<${APPLICATION_MEDIATOR}>`) appMediatorFactory: () => MediatorInterface
-    }) {
-      super(... arguments)
-      this._appMediator = appMediatorFactory()
     }
   }
 }

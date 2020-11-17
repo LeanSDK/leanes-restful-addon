@@ -28,25 +28,38 @@ import type { HttpCookiesInterface } from '../interfaces/HttpCookiesInterface';
 
 export default (Module) => {
   const {
-    DEVELOPMENT, HTTP_MEDIATOR,
+    PRODUCTION, HTTP_MEDIATOR,
     CoreObject,
     // HttpRequest, HttpResponse, HttpCookies,
-    ConfigurableMixin,
+    // ConfigurableMixin,
     assert,
     initialize, partOf, meta, property, method, nameBy, mixin, injectable, inject,
     Utils: { _, statuses }
   } = Module.NS;
 
-
   @initialize
   @injectable()
   @partOf(Module)
-  @mixin(ConfigurableMixin)
+  // @mixin(ConfigurableMixin)
   class Context extends CoreObject implements ContextInterface {
     @nameBy static  __filename = __filename;
     @meta static object = {};
 
-    @property _httpMediator: HttpMediatorInterface = null;
+    @inject(`Factory<${HTTP_MEDIATOR}>`)
+    @property _httpMediatorFactory: () => HttpMediatorInterface;
+
+    @property get _httpMediator(): HttpMediatorInterface {
+      return this._httpMediatorFactory();
+    }
+
+    @inject('HttpRequest')
+    @property request: HttpRequestInterface;
+
+    @inject('HttpResponse')
+    @property response: HttpResponseInterface;
+
+    @inject('HttpCookies')
+    @property cookies: HttpCookiesInterface;
 
     @property _req: object = null; // native request object
 
@@ -59,12 +72,6 @@ export default (Module) => {
     @property get res(): object {
       return this._res;
     }
-
-    @property request: ?HttpRequestInterface = null;
-
-    @property response: ?HttpResponseInterface = null;
-
-    @property cookies: ?HttpCookiesInterface = null;
 
     @property accept: object = null;
 
@@ -127,7 +134,7 @@ export default (Module) => {
         errorMessage: msg,
         code: err.code || code
       };
-      if (this.configs.environment === DEVELOPMENT) {
+      if (!(this.configs != null && this.configs.environment === PRODUCTION)) {
         message.exception = `${err.name || 'Error'}: ${msg}`;
         message.stacktrace = err.stack.split('\n');
       }
@@ -357,7 +364,9 @@ export default (Module) => {
       this.response.setContext(this);
       this.response.setRes(res);
       this.state = {};
-      const key = this.configs.cookieKey;
+      const key = this.configs != null
+        ? (this.configs.cookieKey || 'secret')
+        : 'secret';
       const secure = req.secure;
       // this.cookies = HttpCookies.new(req, res, {key, secure});
       // this.cookies = HttpCookies.new();
@@ -370,19 +379,6 @@ export default (Module) => {
 
     @method static async replicateObject() {
       assert.fail(`replicateObject method not supported for ${this.name}`);
-    }
-
-    constructor({
-      @inject(`Factory<${HTTP_MEDIATOR}>`) httpMediatorFactory: () => HttpMediatorInterface,
-      @inject('HttpRequest') request: HttpRequestInterface,
-      @inject('HttpResponse') response: HttpResponseInterface,
-      @inject('HttpCookies') cookies: HttpCookiesInterface,
-    }) {
-      super(... arguments)
-      this._httpMediator = httpMediatorFactory()
-      this.request = request
-      this.response = response
-      this.cookies = cookies
     }
   }
 }

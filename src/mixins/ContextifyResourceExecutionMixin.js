@@ -19,7 +19,7 @@ import type { MediatorInterface } from '../interfaces/MediatorInterface';
 export default (Module) => {
   const {
     APPLICATION_MEDIATOR, LIGHTWEIGHT,
-    initializeMixin, meta, method, property,
+    initializeMixin, meta, method, property, inject,
   } = Module.NS;
 
   Module.defineMixin(__filename, (BaseClass) => {
@@ -27,7 +27,12 @@ export default (Module) => {
     class Mixin extends BaseClass {
       @meta static object = {};
 
-      @property _appMediator: MediatorInterface = null;
+      @inject(`Factory<${APPLICATION_MEDIATOR}>`)
+      @property _appMediatorFactory: () => MediatorInterface;
+
+      @property get _appMediator(): MediatorInterface {
+        return this._appMediatorFactory();
+      }
 
       @method async execute(aoNotification: NotificationInterface): Promise<void> {
         let voResult;
@@ -55,13 +60,6 @@ export default (Module) => {
           voResult = { error, resource: this };
         }
         this.send(RESOURCE_RESULT, voResult, voBody.reverse);
-      }
-
-      constructor({
-        @inject(`Factory<${APPLICATION_MEDIATOR}>`) appMediatorFactory: () => MediatorInterface
-      }) {
-        super(... arguments)
-        this._appMediator = appMediatorFactory()
       }
     }
     return Mixin;

@@ -65,31 +65,32 @@ export default (Module) => {
     Mediator,
     // Context,
     // Renderer,
-    // ConfigurableMixin,
-    initialize, partOf, meta, property, method, nameBy, mixin, inject,
+    initialize, partOf, meta, property, method, nameBy, inject,
     Utils: { _, inflect, genRandomAlphaNumbers, statuses, assert }
   } = Module.NS;
 
-
   @initialize
   @partOf(Module)
-  // @mixin(ConfigurableMixin)
   class HttpMediator extends Mediator implements HttpMediatorInterface {
     @nameBy static  __filename = __filename;
     @meta static object = {};
 
-    @property _contextFactory: () => ContextInterface = null;
-    @property _rendererFactory: (name: string) => RendererInterface = null;
-    @property _routerFactory: (name: string) => RouterInterface = null;
-    @property _resourceChecker: (name: string) => boolean = null;
+    @inject('Factory<Context>')
+    @property _contextFactory: () => ContextInterface;
 
-    // iphEventNames = PointerT @private eventNames: Object
+    @inject('RendererFactory<*>')
+    @property _rendererFactory: (string) => RendererInterface;
+
+    @inject('RouterFactory<*>')
+    @property _routerFactory: (string) => RouterInterface;
+
+    @inject('ResourceChecker<*>')
+    @property _resourceChecker: (string) => boolean;
+
     @property _eventNames: object = null;
 
-    // ipoHttpServer = PointerT(HttpMediator.private({
     @property _httpServer: object = null;
 
-    // ipoRenderers = PointerT(HttpMediator.private({
     // @property _renderers: ?{[key: string]: ?RendererInterface} = null;
 
     @property _composed: (ctx: ContextInterface) => Promise<void> = null;
@@ -456,7 +457,7 @@ export default (Module) => {
         }
       }
       if (voRenderer != null) {
-        ctx.body = await voRenderer.render<T = any, S>(ctx, aoData, resource, opts);
+        ctx.body = await voRenderer.render(ctx, aoData, resource, opts);
       }
     }
 
@@ -513,17 +514,8 @@ export default (Module) => {
       }
     }
 
-    constructor({
-      @inject('Factory<Context>') contextFactory: () => ContextInterface,
-      @inject('RendererFactory<*>') rendererFactory: (name: string) => RendererInterface,
-      @inject('RouterFactory<*>') routerFactory: (name: string) => RendererInterface,
-      @inject('ResourceChecker<*>') resourceChecker: (name: string) => boolean,
-    }) {
+    constructor() {
       super(... arguments)
-      this._contextFactory = contextFactory
-      this._rendererFactory = rendererFactory
-      this._routerFactory = routerFactory
-      this._resourceChecker = resourceChecker
       // this._renderers = {};
       this.middlewares = [];
       this.handlers = [];

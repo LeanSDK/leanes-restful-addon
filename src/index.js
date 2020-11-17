@@ -63,11 +63,38 @@ export type { HttpMediatorInterface } from './interfaces/HttpMediatorInterface';
 
 export default (Module) => {
   const {
-    Module: BaseModule,
     initializeMixin, meta, constant, method, patch, decorator, util
   } = Module.NS;
 
-  return ['RestfulAddon', (BaseClass: Class<BaseModule>) => {
+  return ['RestfulAddon', (BaseClass) => {
+
+    @FacadePatchTF
+
+    @BodyParseMixinTF
+    @BulkMethodsRendererMixinTF
+    @CheckAdminOnlyResourceMixinTF
+    @CheckApiVersionResourceMixinTF
+    @CheckSchemaVersionResourceMixinTF
+    @ContextifyApplicationMediatorMixinTF
+    @ContextifyApplicationMixinTF
+    @ContextifyResourceExecutionMixinTF
+    @CountMethodsRendererMixinTF
+    @CrudRendererMixinTF
+    @EditableResourceMixinTF
+    @OwnerableResourceMixinTF
+    @PerformSyntheticRequestApplicationMixinTF
+    @PerformSyntheticRequestMixinTF
+    @TemplatableModuleMixinTF
+
+    @ResourceTF
+    @HttpMediatorTF
+    @RouterTF
+
+    @RendererTF
+    @ContextTF
+    @CookiesTF
+    @ResponseTF
+    @RequestTF
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};
@@ -112,38 +139,9 @@ export default (Module) => {
       @util statuses = statuses;
 
       @method static including() {
-        patch(this.NS.Facade, this.NS.FacadePatch);
+        patch(this.NS.FacadePatch)(this.NS.Facade);
       }
     }
-
-    RequestTF(Mixin);
-    ResponseTF(Mixin);
-    CookiesTF(Mixin);
-    ContextTF(Mixin);
-    RendererTF(Mixin);
-
-    RouterTF(Mixin);
-    HttpMediatorTF(Mixin);
-    ResourceTF(Mixin);
-
-    BodyParseMixinTF(Mixin);
-    BulkMethodsRendererMixinTF(Mixin);
-    CheckAdminOnlyResourceMixinTF(Mixin);
-    CheckApiVersionResourceMixinTF(Mixin);
-    CheckSchemaVersionResourceMixinTF(Mixin);
-    ContextifyApplicationMediatorMixinTF(Mixin);
-    ContextifyApplicationMixinTF(Mixin);
-    ContextifyResourceExecutionMixinTF(Mixin);
-    CountMethodsRendererMixinTF(Mixin);
-    CrudRendererMixinTF(Mixin);
-    EditableResourceMixinTF(Mixin);
-    OwnerableResourceMixinTF(Mixin);
-    PerformSyntheticRequestApplicationMixinTF(Mixin);
-    PerformSyntheticRequestMixinTF(Mixin);
-    TemplatableModuleMixinTF(Mixin);
-
-    FacadePatchTF(Mixin);
-
     return Mixin;
   }]
 }

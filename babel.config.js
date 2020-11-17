@@ -1,13 +1,12 @@
 
 module.exports = {
-  babelrcRoots: [ "node_modules/@leansdk/leanes" ],
+  babelrcRoots: [ "node_modules/@leansdk/leanes", "node_modules/@leansdk/leanes-mapper-addon" ],
 
   presets: [
     ['@babel/preset-env'],
   ],
   plugins: [
     "@babel/plugin-syntax-flow",
-    // "flow-runtime",
     ["flow-runtime", {
       "assert": true,
       "annotate": true

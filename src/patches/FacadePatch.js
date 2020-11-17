@@ -17,7 +17,6 @@ export default (Module) => {
   const {
     JSON_RENDERER,
     initializePatch, meta, method,
-    Utils: { _ }
   } = Module.NS;
 
   Module.definePatch(__filename, (BaseClass) => {
@@ -69,37 +68,6 @@ export default (Module) => {
               return this.container.isBound(`Factory<${resourceName}>`)
             }
           });
-        }
-      }
-
-      @method async remove(): Promise<void> {
-        await super.remove(... arguments)
-        if (this.container.isBound('Context')) {
-          this.container.unbind('Context')
-        }
-        if (this.container.isBound('Factory<Context>')) {
-          this.container.unbind('Factory<Context>')
-        }
-        if (this.container.isBound('HttpRequest')) {
-          this.container.unbind('HttpRequest')
-        }
-        if (this.container.isBound('HttpResponse')) {
-          this.container.unbind('HttpResponse')
-        }
-        if (this.container.isBound('HttpCookies')) {
-          this.container.unbind('HttpCookies')
-        }
-        if (this.container.isBound(JSON_RENDERER)) {
-          this.container.unbind(JSON_RENDERER)
-        }
-        if (this.container.isBound('RendererFactory<*>')) {
-          this.container.unbind('RendererFactory<*>')
-        }
-        if (this.container.isBound('RouterFactory<*>')) {
-          this.container.unbind('RouterFactory<*>')
-        }
-        if (this.container.isBound('ResourceChecker<*>')) {
-          this.container.unbind('ResourceChecker<*>')
         }
       }
     }

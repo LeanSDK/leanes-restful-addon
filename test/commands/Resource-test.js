@@ -3,8 +3,10 @@ const sinon = require('sinon');
 const _ = require('lodash');
 const EventEmitter = require('events');
 const httpErrors = require('http-errors');
-const RestfulAddon = require('../../src/index.js');
-const LeanES = require('leanes/src/leanes').default;
+const addonPath = process.env.ENV === 'build' ? "../../lib/index.dev" : "../../src/index.js";
+const RestfulAddon = require(addonPath).default;
+const MapperAddon = require('@leansdk/leanes-mapper-addon/src').default;
+const LeanES = require('@leansdk/leanes/src').default;
 const {
   Resource,
   initialize, partOf, nameBy, meta, constant, mixin, property, method, attribute, plugin
@@ -16,7 +18,15 @@ describe('Resource', () => {
   describe('.new', () => {
     it('should create new command', () => {
       expect(() => {
-        const resource = Resource.new();
+        @initialize
+        @plugin(RestfulAddon)
+        @plugin(MapperAddon)
+        class Test extends LeanES {
+          @nameBy static __filename = 'Test';
+          @meta static object = {};
+          @constant ROOT = __dirname;
+        }
+        const resource = Test.NS.Resource.new();
       }).to.not.throw(Error);
     });
   });
@@ -25,6 +35,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -48,6 +59,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -71,6 +83,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -94,6 +107,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -122,6 +136,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -141,9 +156,9 @@ describe('Resource', () => {
       const { collectionName } = resource;
 
       @initialize
-      @mixin(LeanES.NS.MemoryCollectionMixin)
       @partOf(Test)
-      class TestsCollection extends LeanES.NS.Collection {
+      @mixin(LeanES.NS.MemoryCollectionMixin)
+      class TestsCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestsCollection';
         @meta static object = {};
         @property entityName = 'TestEntity';
@@ -151,11 +166,11 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestEntityRecord extends LeanES.NS.Record {
+      class TestEntityRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestEntityRecord';
         @meta static object = {};
         @property entityName = 'TestEntity';
-        @attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) test;
         @method static findRecordByName() {
           return TestEntityRecord;
         }
@@ -188,7 +203,7 @@ describe('Resource', () => {
 
   //     @initialize
   //     @plugin(RestfulAddon)
-      class Test extends LeanES {
+  //     class Test extends LeanES {
   //       @nameBy static __filename = 'Test';
   //       @meta static object = {};
   //       @constant ROOT = __dirname;
@@ -245,7 +260,7 @@ describe('Resource', () => {
 
   //       @initialize
   //       @plugin(RestfulAddon)
-      class Test extends LeanES {
+  //       class Test extends LeanES {
   //         @nameBy static __filename = 'Test';
   //         @meta static object = {};
   //         @constant ROOT = __dirname;
@@ -310,6 +325,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -338,6 +354,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -375,6 +392,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -410,6 +428,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -457,6 +476,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -473,17 +493,17 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestsCollection extends LeanES.NS.Collection {
+      class TestsCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestsCollection';
         @meta static object = {};
       }
 
       @initialize
       @partOf(Test)
-      class TestEntityRecord extends LeanES.NS.Record {
+      class TestEntityRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestEntityRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) test;
         @method static findRecordByName() {
           TestEntityRecord;
         }
@@ -529,6 +549,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -586,6 +607,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -594,19 +616,19 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRecord extends LeanES.NS.Record {
+      class TestRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) test;
         @method static findRecordByName() {
           return TestRecord
         }
       }
 
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
@@ -617,20 +639,20 @@ describe('Resource', () => {
       }
 
       @initialize
-      @mixin(LeanES.NS.QueryableCollectionMixin)
       @partOf(Test)
-      class TestsCollection extends LeanES.NS.Collection {
+      @mixin(Test.NS.QueryableCollectionMixin)
+      class TestsCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestsCollection';
         @meta static object = {};
         @method parseQuery(aoQuery) {
           return aoQuery;
         }
         @method async takeAll() {
-          return await LeanES.NS.Cursor.new(this, this.getData().data)
+          return await Test.NS.Cursor.new(this, this.getData().data)
         }
         @method executeQuery(aoParsedQuery) {
           const data = _.filter(this.getData().data, aoParsedQuery.$filter);
-          LeanES.NS.Cursor.new(this, data);
+          Test.NS.Cursor.new(this, data);
         }
         @method push(aoRecord) {
           aoRecord.id = LeanES.NS.Utils.uuid.v4();
@@ -645,7 +667,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -749,23 +771,24 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
 
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
-      class TestRecord extends LeanES.NS.Record {
+      class TestRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) test;
         @method static findRecordByName() {
           return TestRecord;
         }
@@ -780,9 +803,9 @@ describe('Resource', () => {
       }
 
       @initialize
-      @mixin(LeanES.NS.QueryableCollectionMixin)
       @partOf(Test)
-      class TestsCollection extends LeanES.NS.Collection {
+      @mixin(Test.NS.QueryableCollectionMixin)
+      class TestsCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestsCollection';
         @meta static object = {};
         @method parseQuery(aoQuery) {
@@ -790,7 +813,7 @@ describe('Resource', () => {
         }
         @method async executeQuery(aoParsedQuery) {
           const data = _.filter(this.getData().data, aoParsedQuery.$filter);
-          return await LeanES.NS.Cursor.new(this, data);
+          return await Test.NS.Cursor.new(this, data);
         }
         @method push(aoRecord) {
           aoRecord.id = LeanES.NS.Utils.uuid.v4();
@@ -804,7 +827,7 @@ describe('Resource', () => {
           if (data != null) {
             result.push(data);
           }
-          const cursor = LeanES.NS.Cursor.new(this, result);
+          const cursor = Test.NS.Cursor.new(this, result);
           return await cursor.first();
         }
         @method async includes(id) {
@@ -814,7 +837,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -879,7 +902,7 @@ describe('Resource', () => {
       col.setData({
         delegate: 'TestRecord',
         serializer: () => {
-          return LeanES.NS.Serializer;
+          return Test.NS.Serializer;
         },
         data: []
       });
@@ -914,23 +937,24 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
 
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
-      class TestRecord extends LeanES.NS.Record {
+      class TestRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) test;
         @method static findRecordByName() {
           return TestRecord;
         }
@@ -945,9 +969,9 @@ describe('Resource', () => {
       }
 
       @initialize
-      @mixin(LeanES.NS.QueryableCollectionMixin)
+      @mixin(Test.NS.QueryableCollectionMixin)
       @partOf(Test)
-      class TestsCollection extends LeanES.NS.Collection {
+      class TestsCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestsCollection';
         @meta static object = {};
         @method parseQuery(aoQuery) {
@@ -955,7 +979,7 @@ describe('Resource', () => {
         }
         @method async executeQuery(aoParsedQuery) {
           const data = _.filter(this.getData().data, aoParsedQuery.$filter);
-          return await LeanES.NS.Cursor.new(this, data);
+          return await Test.NS.Cursor.new(this, data);
         }
         @method push(aoRecord) {
           aoRecord.id = LeanES.NS.Utils.uuid.v4();
@@ -969,7 +993,7 @@ describe('Resource', () => {
           if (data != null) {
             result.push(data);
           }
-          const cursor = LeanES.NS.Cursor.new(this, result);
+          const cursor = Test.NS.Cursor.new(this, result);
           return await cursor.first();
         }
         @method async includes(id) {
@@ -981,7 +1005,7 @@ describe('Resource', () => {
       col.setName(COLLECTION_NAME);
       col.setData({
         delegate: 'TestRecord',
-        // serializer: LeanES.NS.Serializer,
+        // serializer: Test.NS.Serializer,
         data: []
       });
       facade.registerProxy(col);
@@ -1020,23 +1044,24 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
 
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
-      class TestRecord extends LeanES.NS.Record {
+      class TestRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) test;
         @method static findRecordByName() {
           return TestRecord;
         }
@@ -1051,9 +1076,9 @@ describe('Resource', () => {
       }
 
       @initialize
-      @mixin(LeanES.NS.QueryableCollectionMixin)
+      @mixin(Test.NS.QueryableCollectionMixin)
       @partOf(Test)
-      class TestCollection extends LeanES.NS.Collection {
+      class TestCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestCollection';
         @meta static object = {};
         @method parseQuery(aoQuery) {
@@ -1061,7 +1086,7 @@ describe('Resource', () => {
         }
         @method async executeQuery(aoParsedQuery) {
           const data = _.filter(this.getData().data, aoParsedQuery.$filter);
-          return await LeanES.NS.Cursor.new(this, data);
+          return await Test.NS.Cursor.new(this, data);
         }
         @method async push(aoRecord) {
           aoRecord.id = LeanES.NS.Utils.uuid.v4();
@@ -1088,7 +1113,7 @@ describe('Resource', () => {
           if (data != null) {
             result.push(data);
           }
-          const cursor = LeanES.NS.Cursor.new(this, result);
+          const cursor = Test.NS.Cursor.new(this, result);
           return await cursor.first();
         }
         @method async includes(id) {
@@ -1100,7 +1125,7 @@ describe('Resource', () => {
       col.setName(COLLECTION_NAME);
       col.setData({
         delegate: 'TestRecord',
-        serializer: LeanES.NS.Serializer,
+        serializer: Test.NS.Serializer,
         data: []
       });
       facade.registerProxy(col);
@@ -1151,22 +1176,23 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
-      class TestRecord extends LeanES.NS.Record {
+      class TestRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) test;
         @method static findRecordByName() {
           return TestRecord;
         }
@@ -1181,9 +1207,9 @@ describe('Resource', () => {
       }
 
       @initialize
-      @mixin(LeanES.NS.QueryableCollectionMixin)
+      @mixin(Test.NS.QueryableCollectionMixin)
       @partOf(Test)
-      class TestsCollection extends LeanES.NS.Collection {
+      class TestsCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestsCollection';
         @meta static object = {};
         @method parseQuery(aoQuery) {
@@ -1191,7 +1217,7 @@ describe('Resource', () => {
         }
         @method async executeQuery(aoParsedQuery) {
           const data = _.filter(this.getData().data, aoParsedQuery.$filter);
-          return await LeanES.NS.Cursor.new(this, data);
+          return await Test.NS.Cursor.new(this, data);
         }
         @method async push(aoRecord) {
           aoRecord.id = LeanES.NS.Utils.uuid.v4();
@@ -1218,7 +1244,7 @@ describe('Resource', () => {
           if (data != null) {
             result.push(data);
           }
-          const cursor = LeanES.NS.Cursor.new(this, result);
+          const cursor = Test.NS.Cursor.new(this, result);
           return await cursor.first();
         }
         @method async includes(id) {
@@ -1228,7 +1254,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -1322,6 +1348,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1330,10 +1357,10 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRecord extends LeanES.NS.Record {
+      class TestRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) test;
         @method static findRecordByName() {
           return TestRecord;
         }
@@ -1347,14 +1374,14 @@ describe('Resource', () => {
         @property entityName = 'TestEntity';
       }
 
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
-      class TestResque extends LeanES.NS.Resque {
+      class TestResque extends Test.NS.Resque {
         @nameBy static __filename = 'TestResque';
         @meta static object = {};
         @property jobs = {};
@@ -1368,21 +1395,21 @@ describe('Resource', () => {
       }
 
       const resque = TestResque.new();
-      resque.setName(LeanES.NS.RESQUE);
+      resque.setName(Test.NS.RESQUE);
       resque.setData({
         data: []
       });
       facade.registerProxy(resque);
 
       @initialize
-      @mixin(LeanES.NS.QueryableCollectionMixin)
+      @mixin(Test.NS.QueryableCollectionMixin)
       @partOf(Test)
-      class TestsCollection extends LeanES.NS.Collection {
+      class TestsCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestsCollection';
         @meta static object = {};
         @property jobs = {};
         @method async takeAll() {
-          return await LeanES.NS.Cursor.new(this, this.getData().data);
+          return await Test.NS.Cursor.new(this, this.getData().data);
         }
 
         @method push(aoRecord) {
@@ -1401,7 +1428,7 @@ describe('Resource', () => {
           if (data != null) {
             result.push(data);
           }
-          const cursor = LeanES.NS.Cursor.new(this, result);
+          const cursor = Test.NS.Cursor.new(this, result);
           await cursor.first();
         }
 
@@ -1412,7 +1439,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -1536,15 +1563,16 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
@@ -1557,7 +1585,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -1648,6 +1676,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1708,6 +1737,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1773,6 +1803,7 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1843,15 +1874,16 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
@@ -1863,7 +1895,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -1921,21 +1953,21 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestEntityRecord extends LeanES.NS.Record {
+      class TestEntityRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestEntityRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
-        @attribute({ type: 'string' }) ownerId;
+        @Test.NS.attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) ownerId;
         @method static findRecordByName() {
           return TestEntityRecord;
         }
       }
 
       @initialize
-      @mixin(LeanES.NS.MemoryCollectionMixin)
-      @mixin(LeanES.NS.GenerateUuidIdMixin)
       @partOf(Test)
-      class TestCollection extends LeanES.NS.Collection {
+      @mixin(Test.NS.MemoryCollectionMixin)
+      @mixin(Test.NS.GenerateUuidIdMixin)
+      class TestCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestCollection';
         @meta static object = {};
       }
@@ -2018,15 +2050,16 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
@@ -2038,7 +2071,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -2096,21 +2129,21 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestEntityRecord extends LeanES.NS.Record {
+      class TestEntityRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestEntityRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
-        @attribute({ type: 'string' }) ownerId;
+        @Test.NS.attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) ownerId;
         @method static findRecordByName() {
           return TestEntityRecord;
         }
       }
 
       @initialize
-      @mixin(LeanES.NS.MemoryCollectionMixin)
-      @mixin(LeanES.NS.GenerateUuidIdMixin)
       @partOf(Test)
-      class TestCollection extends LeanES.NS.Collection {
+      @mixin(Test.NS.MemoryCollectionMixin)
+      @mixin(Test.NS.GenerateUuidIdMixin)
+      class TestCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestCollection';
         @meta static object = {};
       }
@@ -2177,15 +2210,16 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
@@ -2197,7 +2231,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -2255,21 +2289,21 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestEntityRecord extends LeanES.NS.Record {
+      class TestEntityRecord extends Test.NS.Record {
         @nameBy static __filename = 'TestEntityRecord';
         @meta static object = {};
-        @attribute({ type: 'string' }) test;
-        @attribute({ type: 'string' }) ownerId;
+        @Test.NS.attribute({ type: 'string' }) test;
+        @Test.NS.attribute({ type: 'string' }) ownerId;
         @method static findRecordByName() {
           return TestEntityRecord;
         }
       }
 
       @initialize
-      @mixin(LeanES.NS.MemoryCollectionMixin)
-      @mixin(LeanES.NS.GenerateUuidIdMixin)
       @partOf(Test)
-      class TestCollection extends LeanES.NS.Collection {
+      @mixin(Test.NS.MemoryCollectionMixin)
+      @mixin(Test.NS.GenerateUuidIdMixin)
+      class TestCollection extends Test.NS.Collection {
         @nameBy static __filename = 'TestCollection';
         @meta static object = {};
       }
@@ -2344,19 +2378,20 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
-      class TestResque extends LeanES.NS.Resque {
+      class TestResque extends Test.NS.Resque {
         @nameBy static __filename = 'TestResque';
         @meta static object = {};
         @property jobs = {};
@@ -2369,7 +2404,7 @@ describe('Resource', () => {
         }
       }
       const resque = TestResque.new();
-      resque.setName(LeanES.NS.RESQUE);
+      resque.setName(Test.NS.RESQUE);
       resque.setData({
         data: []
       });
@@ -2387,7 +2422,7 @@ describe('Resource', () => {
 
       @initialize
       @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
+      class TestRouter extends Test.NS.Router {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
@@ -2466,19 +2501,20 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
         @constant ROOT = `${__dirname}/config`;
       }
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
+      // const configs = LeanES.NS.Configuration.new();
+      // configs.setName(LeanES.NS.CONFIGURATION);
+      // configs.setData(Test.NS.ROOT);
+      // facade.registerProxy(configs);
 
       @initialize
       @partOf(Test)
-      class TestResque extends LeanES.NS.Resque {
+      class TestResque extends Test.NS.Resque {
         @nameBy static __filename = 'TestResque';
         @meta static object = {};
         @property jobs = {};
@@ -2516,7 +2552,7 @@ describe('Resource', () => {
         }
       }
       const resque = TestResque.new();
-      resque.setName(LeanES.NS.RESQUE);
+      resque.setName(Test.NS.RESQUE);
       resque.setData({
         data: []
       });
@@ -2561,109 +2597,6 @@ describe('Resource', () => {
         });
         ++index;
       }
-    });
-  });
-  describe('.writeTransaction', () => {
-    let facade = null;
-    afterEach(async () => {
-      facade != null ? typeof facade.remove === "function" ? await facade.remove() : void 0 : void 0;
-    });
-    it('should test if transaction is needed', async () => {
-      const KEY = 'TEST_RESOURCE_106';
-      facade = LeanES.NS.Facade.getInstance(KEY);
-      const testAction = sinon.spy(function () { });
-
-      @initialize
-      @plugin(RestfulAddon)
-      class Test extends LeanES {
-        @nameBy static __filename = 'Test';
-        @meta static object = {};
-        @constant ROOT = `${__dirname}/config`;
-      }
-      const configs = LeanES.NS.Configuration.new();
-      configs.setName(LeanES.NS.CONFIGURATION);
-      configs.setData(Test.NS.ROOT);
-      facade.registerProxy(configs);
-
-      @initialize
-      @partOf(Test)
-      class TestResource extends Test.NS.Resource {
-        @nameBy static __filename = 'TestResource';
-        @meta static object = {};
-        @Test.NS.action test() {
-          testAction();
-        }
-      }
-
-      @initialize
-      @partOf(Test)
-      class TestRouter extends LeanES.NS.Router {
-        @nameBy static __filename = 'TestRouter';
-        @meta static object = {};
-      }
-
-      class MyResponse extends EventEmitter {
-        _headers = {};
-        getHeaders() {
-          return LeanES.NS.Utils.copy(this._headers);
-        }
-
-        getHeader(field) {
-          return this._headers[field.toLowerCase()];
-        }
-
-        setHeader(field, value) {
-          this._headers[field.toLowerCase()] = value;
-        }
-
-        removeHeader(field) {
-          delete this._headers[field.toLowerCase()];
-        }
-
-        end(data, encoding = 'utf-8', callback = () => { }) {
-          this.finished = true;
-          this.emit('finish', data != null ? typeof data.toString === "function" ? data.toString(encoding) : void 0 : void 0);
-          callback();
-        }
-
-        constructor(...args) {
-          super(...args);
-          this.finished = false;
-          this._headers = {};
-        }
-      }
-
-      const req = {
-        method: 'GET',
-        url: 'http://localhost:8888/space/SPACE123/test_entity/ID123456',
-        headers: {
-          'x-forwarded-for': '192.168.0.1'
-        }
-      };
-      const res = new MyResponse();
-      const router = TestRouter.new();
-      router.setName('TEST_SWITCH_ROUTER');
-      facade.registerProxy(router);
-
-      @initialize
-      @partOf(Test)
-      class TestSwitch extends Test.NS.HttpMediator {
-        @nameBy static __filename = 'TestSwitch';
-        @meta static object = {};
-        @property routerName = 'TEST_SWITCH_ROUTER';
-      }
-      let resource = TestResource.new();
-      resource.initializeNotifier(KEY);
-      const switchM = TestSwitch.new();
-      switchM.setName('TEST_SWITCH_MEDIATOR');
-      facade.registerMediator(switchM);
-      const switchMediator = facade.retrieveMediator('TEST_SWITCH_MEDIATOR');
-      resource = TestResource.new();
-      resource.initializeNotifier(KEY);
-      const context = Test.NS.Context.new(switchMediator, req, res);
-      assert.isFalse(await resource.writeTransaction('test', context));
-      context.request.method = 'POST';
-      assert.isTrue(await resource.writeTransaction('test', context));
     });
   });
 });
