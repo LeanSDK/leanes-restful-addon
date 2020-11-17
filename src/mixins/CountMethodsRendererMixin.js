@@ -21,11 +21,10 @@ import type { RendererItemResultT } from '../types/RendererItemResultT';
 
 export default (Module) => {
   const {
-    Renderer,
     initializeMixin, meta, method,
   } = Module.NS;
 
-  Module.defineMixin(__filename, (BaseClass: Class<Renderer>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};

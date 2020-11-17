@@ -20,7 +20,7 @@ import type { ResourceInterface } from './ResourceInterface';
 import type { RouterRouteT } from '../types/RouterRouteT';
 import type {
   LegacyResponseInterface, AxiosResponse, Config
-} from '@leansdk/leanes/src/types/RequestT';
+} from '../types/RequestT';
 
 export interface HttpMediatorInterface {
   middlewares: Array<(ctx: ContextInterface) => Promise<?boolean>>;

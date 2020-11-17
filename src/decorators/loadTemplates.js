@@ -18,25 +18,32 @@ import assert from 'assert';
 const cpoMetaObject = Symbol.for('~metaObject');
 const cphTemplatesList = Symbol.for('~templatesList');
 
-export default function loadTemplates({ filesTreeSync }) {
+export default function loadTemplates(Module) {
+  assert(Module[cpoMetaObject] != null, 'Target for `loadTemplates` decorator must be a Class');
+  const {
+    FsUtils
+  } = Module.NS;
+  assert(FsUtils != null, 'Target for `loadTemplates` decorator should has FsUtilsAddon');
+  const {
+    Utils: { filesTreeSync }
+  } = FsUtils.NS;
+
   (filesTreeSync: (string, ?object) => string[]);
-  return target => {
-    assert(target[cpoMetaObject] != null, 'Target for `loadTemplates` decorator must be a Class');
-    const vsRoot = target.prototype.ROOT != null ? target.prototype.ROOT : '.';
-    const vsTemplatesDir = `${vsRoot}/templates`;
-    const files = filesTreeSync(vsTemplatesDir, {
-      filesOnly: true
-    });
-    const templatesList = (files != null ? files : []).map((i) => {
-      const templateName = i.replace(/\.js/, '');
-      const vsTemplatePath = `${vsTemplatesDir}/${templateName}`;
-      return vsTemplatePath;
-    });
-    Reflect.defineProperty(target, cphTemplatesList, {
-      enumerable: true,
-      writable: true,
-      value: templatesList
-    });
-    return target;
-  }
-};
+
+  const vsRoot = Module.prototype.ROOT != null ? Module.prototype.ROOT : '.';
+  const vsTemplatesDir = `${vsRoot}/templates`;
+  const files = filesTreeSync(vsTemplatesDir, {
+    filesOnly: true
+  });
+  const templatesList = (files != null ? files : []).map((i) => {
+    const templateName = i.replace(/\.js/, '');
+    const vsTemplatePath = `${vsTemplatesDir}/${templateName}`;
+    return vsTemplatePath;
+  });
+  Reflect.defineProperty(Module, cphTemplatesList, {
+    enumerable: true,
+    writable: true,
+    value: templatesList
+  });
+  return Module;
+}

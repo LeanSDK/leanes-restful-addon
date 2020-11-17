@@ -15,7 +15,7 @@
 
 import type {
   LegacyResponseInterface, AxiosResponse, Config
-} from '@leansdk/leanes/src/types/RequestT';
+} from '../types/RequestT';
 
 export default (Module) => {
   const {

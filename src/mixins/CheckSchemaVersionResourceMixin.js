@@ -13,17 +13,16 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { CollectionInterface } from '@leansdk/leanes-mapper-addon/src';
+import type { CollectionInterface } from '../interfaces/CollectionInterface';
 
 export default (Module) => {
   const {
     MIGRATIONS, MIGRATION_NAMES,
-    Resource,
     initializeMixin, meta, method, property,
     Utils: { assert }
   } = Module.NS;
 
-  Module.defineMixin(__filename, (BaseClass: Class<Resource>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};

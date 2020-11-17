@@ -22,8 +22,6 @@ import type { HttpRequestInterface } from '../interfaces/HttpRequestInterface';
 import type { HttpResponseInterface } from '../interfaces/HttpResponseInterface';
 import type { HttpCookiesInterface } from '../interfaces/HttpCookiesInterface';
 
-import { injectable, inject } from 'inversify';
-
 /*
 Идеи взяты из https://github.com/koajs/koa/blob/master/lib/context.js
 */
@@ -35,7 +33,7 @@ export default (Module) => {
     // HttpRequest, HttpResponse, HttpCookies,
     ConfigurableMixin,
     assert,
-    initialize, partOf, meta, property, method, nameBy, mixin,
+    initialize, partOf, meta, property, method, nameBy, mixin, injectable, inject,
     Utils: { _, statuses }
   } = Module.NS;
 

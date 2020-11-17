@@ -24,8 +24,6 @@ import net from 'net';
 import type { ContextInterface } from '../interfaces/ContextInterface';
 import type { HttpRequestInterface } from '../interfaces/HttpRequestInterface';
 
-import { injectable } from 'inversify';
-
 /*
 Идеи взяты из https://github.com/koajs/koa/blob/master/lib/request.js
 */
@@ -35,7 +33,7 @@ export default (Module) => {
     CoreObject,
     ConfigurableMixin,
     assert,
-    initialize, partOf, meta, property, method, nameBy, mixin,
+    initialize, partOf, meta, property, method, nameBy, mixin, injectable,
     Utils: { _ }
   } = Module.NS;
 

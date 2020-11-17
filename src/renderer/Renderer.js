@@ -13,8 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { MediatorInterface } from '@leansdk/leanes/src';
-
+import type { MediatorInterface } from '../interfaces/MediatorInterface';
 import type { RendererInterface } from '../interfaces/RendererInterface';
 import type { ContextInterface } from '../interfaces/ContextInterface';
 import type { ResourceInterface } from '../interfaces/ResourceInterface';
@@ -22,13 +21,11 @@ import type { RouterRouteT } from '../types/RouterRouteT';
 import type { RendererListResultT } from '../types/RendererListResultT';
 import type { RendererItemResultT } from '../types/RendererItemResultT';
 
-import { injectable, inject } from 'inversify';
-
 export default (Module) => {
   const {
     APPLICATION_MEDIATOR,
     CoreObject,
-    initialize, partOf, meta, method, nameBy, property,
+    initialize, partOf, meta, method, nameBy, property, injectable, inject,
   } = Module.NS;
 
   @initialize

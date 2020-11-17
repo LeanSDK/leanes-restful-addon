@@ -17,13 +17,12 @@ import type { HttpCookiesInterface } from '../interfaces/HttpCookiesInterface';
 
 import Keygrip from 'keygrip';
 import NodeCookies from 'cookies';
-import { injectable } from 'inversify';
 
 export default (Module) => {
   const {
     CoreObject,
     assert,
-    initialize, partOf, meta, property, method, nameBy,
+    initialize, partOf, meta, property, method, nameBy, injectable,
     Utils: { _ }
   } = Module.NS;
 

@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { NotificationInterface } from '@leansdk/leanes/src';
+import type { NotificationInterface } from '../interfaces/NotificationInterface';
 
 import type { ContextInterface } from '../interfaces/ContextInterface';
 import type { ResourceInterface } from '../interfaces/ResourceInterface';
@@ -21,11 +21,10 @@ import type { ResourceInterface } from '../interfaces/ResourceInterface';
 export default (Module) => {
   const {
     RESOURCE_RESULT,
-    Mediator,
     initializeMixin, meta, method,
   } = Module.NS;
 
-  Module.defineMixin(__filename, (BaseClass: Class<Mediator>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};

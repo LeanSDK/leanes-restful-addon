@@ -16,7 +16,6 @@
 export default (Module) => {
   const {
     JSON_RENDERER,
-    Facade,
     initializePatch, meta, method,
     Utils: { _ }
   } = Module.NS;

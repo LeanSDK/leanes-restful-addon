@@ -13,8 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { NotificationInterface } from '@leansdk/leanes/src';
-
+import type { NotificationInterface } from '../interfaces/NotificationInterface';
 import type { RouterInterface } from '../interfaces/RouterInterface';
 import type { HttpMediatorInterface } from '../interfaces/HttpMediatorInterface';
 import type { ContextInterface } from '../interfaces/ContextInterface';
@@ -24,15 +23,13 @@ import type { ResourceInterface } from '../interfaces/ResourceInterface';
 import type { RouterRouteT } from '../types/RouterRouteT';
 import type {
   LegacyResponseInterface, AxiosResponse, Config
-} from '@leansdk/leanes/src/types/RequestT';
+} from '../types/RequestT';
 
 import pathToRegexp from 'path-to-regexp';
 import EventEmitter from 'events';
 import http from 'http';
 import onFinished from 'on-finished';
 import Stream from 'stream';
-
-import { inject } from 'inversify';
 
 const indexOf = [].indexOf;
 
@@ -69,7 +66,7 @@ export default (Module) => {
     // Context,
     // Renderer,
     // ConfigurableMixin,
-    initialize, partOf, meta, property, method, nameBy, mixin,
+    initialize, partOf, meta, property, method, nameBy, mixin, inject,
     Utils: { _, inflect, genRandomAlphaNumbers, statuses, assert }
   } = Module.NS;
 

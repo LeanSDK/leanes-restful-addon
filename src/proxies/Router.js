@@ -23,67 +23,46 @@ const hasProp = {}.hasOwnProperty;
 export default (Module) => {
   const {
     Proxy, Proto,
-    // ConfigurableMixin,
     assert,
     initialize, partOf, meta, property, method, nameBy, mixin,
     Utils: { _, inflect }
   } = Module.NS;
 
-
   @initialize
   @partOf(Module)
-  // @mixin(ConfigurableMixin)
   class Router extends Proxy implements RouterInterface {
     @nameBy static __filename = __filename;
     @meta static object = {};
 
-    // ipsPath = PointerT(Router.protected({
     @property _path: ?string = '/';
 
-    // ipsName = PointerT(Router.protected({
     @property _name: ?string = '';
 
-    // ipsModule = PointerT(Router.protected({
     @property _module: ?string = null;
 
-    // iplOnly = PointerT(Router.protected({
     @property _only: ?(string | string[]) = null;
 
-    // iplVia = PointerT(Router.protected({
     @property _via: ?(string | string[]) = null;
 
-    // iplExcept = PointerT(Router.protected({
     @property _except: ?(string | string[]) = null;
 
-    // ipoAbove = PointerT(Router.protected({
     @property _above: ?object = null;
 
-    // ipsAt = PointerT(Router.protected({
     @property _at: ?('collection' | 'member') = null;
 
-    // ipsResource = PointerT(Router.protected({
     @property _resource: ?string = null;
 
-    // ipsTag = PointerT(Router.protected({
     @property _tag: ?string = null;
 
-    // ipsTemplates = PointerT(Router.protected({
     @property _templates: ?string = null;
 
-    // ipsParam = PointerT(Router.protected({
     @property _param: ?string = null;
 
-    // iplRouters = PointerT(Router.protected({
     @property _routers: ?Array<Router> = [];
 
-    // iplPathes = PointerT(Router.protected({
     @property _pathes: ?Array<RouterRouteT> = [];
 
-    // iplResources = PointerT(Router.protected({
     @property _resources: ?Array<Router> = [];
-
-    // iplRoutes = PointerT(Router.protected({
-    // @property _routes: ?Array<RouterRouteT> = null;
 
     @property get path(): ?string {
       return this._path;
@@ -188,37 +167,30 @@ export default (Module) => {
     }
 
     @method 'get'(asPath: string, aoOpts: ?RouteOptionsT) {
-      // @._pathes ?= []
       this.defineMethod(this._pathes, 'get', asPath, aoOpts);
     }
 
     @method post(asPath: string, aoOpts: ?RouteOptionsT) {
-      // @._pathes ?= []
       this.defineMethod(this._pathes, 'post', asPath, aoOpts);
     }
 
     @method put(asPath: string, aoOpts: ?RouteOptionsT) {
-      // @._pathes ?= []
       this.defineMethod(this._pathes, 'put', asPath, aoOpts);
     }
 
     @method 'delete'(asPath: string, aoOpts: ?RouteOptionsT) {
-      // @._pathes ?= []
       this.defineMethod(this._pathes, 'delete', asPath, aoOpts);
     }
 
     @method head(asPath: string, aoOpts: ?RouteOptionsT) {
-      // @._pathes ?= []
       this.defineMethod(this._pathes, 'head', asPath, aoOpts);
     }
 
     @method options(asPath: string, aoOpts: ?RouteOptionsT) {
-      // @._pathes ?= []
       this.defineMethod(this._pathes, 'options', asPath, aoOpts);
     }
 
     @method patch(asPath: string, aoOpts: ?RouteOptionsT) {
-      // @._pathes ?= []
       this.defineMethod(this._pathes, 'patch', asPath, aoOpts);
     }
 
@@ -285,10 +257,8 @@ export default (Module) => {
       const vsTag = (asTag != null) && asTag !== '' ? `/${asTag}` : '';
       const vsParam = (asParam != null) && asParam !== '' ? asParam : ':' + inflect.singularize(inflect.underscore((asResource != null ? asResource : `${vsParentName}${vsName}`).replace(/[\/]/g, '_').replace(/[_]$/g, '')));
 
-      // @._routers ?= []
       @partOf(vcModule)
       class ResourceRouter extends Router {
-        // class ResourceRouter extends this.constructor {
         @nameBy static __filename = 'ResourceRouter';
         @meta static object = {};
 
@@ -381,10 +351,8 @@ export default (Module) => {
       const vsTemplates = (alTemplates != null) && alTemplates !== '' ? alTemplates : (alTemplates != null) && alTemplates === '' ? '' : (vsModule != null) && vsModule !== '' ? vsModule : (vsModule != null) && vsModule === '' ? '' : asName;
       const vsTag = (asTag != null) && asTag !== '' ? `/${asTag}` : '';
 
-      // @._routers ?= []
       @partOf(vcModule)
       class NamespaceRouter extends Router {
-        // class NamespaceRouter extends this.constructor {
         @nameBy static __filename = 'NamespaceRouter';
         @meta static object = {};
 
@@ -510,12 +478,6 @@ export default (Module) => {
       return vlRoutes;
     }
 
-    // @method init(...args) {
-    //   super.init(...args);
-    //   this._routers = [];
-    //   this._pathes = [];
-    // }
-
     constructor() {
       super(... arguments);
     }
@@ -559,7 +521,6 @@ export default (Module) => {
         update: null,
         delete: null
       };
-      // @._pathes ?= []
       if ((this._name != null) && this._name !== '') {
         const vsKeyName = this._param && this._param.replace(/^\:/, '') || undefined;
         const vsEntityName = this._above && this._above.entityName || this.defaultEntityName();

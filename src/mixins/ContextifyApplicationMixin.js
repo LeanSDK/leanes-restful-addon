@@ -19,11 +19,10 @@ import type { ResourceInterface } from '../interfaces/ResourceInterface';
 export default (Module) => {
   const {
     APPLICATION_MEDIATOR,
-    Application,
     initializeMixin, meta, method, property
   } = Module.NS;
 
-  Module.defineMixin(__filename, (BaseClass: Class<Application>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};

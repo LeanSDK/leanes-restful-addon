@@ -17,11 +17,10 @@ import parse from 'co-body';
 
 export default (Module) => {
   const {
-    Resource,
     initializeMixin, meta, method, property
   } = Module.NS;
 
-  Module.defineMixin(__filename, (BaseClass: Class<Resource>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};

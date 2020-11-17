@@ -15,13 +15,11 @@
 
 export default (Module) => {
   const {
-    Resource,
     initializeMixin, meta, method, chains,
     Utils: { _ }
   } = Module.NS;
 
-
-  Module.defineMixin(__filename, (BaseClass: Class<Resource>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     @chains(function () {
       this.beforeHook('protectEditable', {

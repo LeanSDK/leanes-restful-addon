@@ -26,8 +26,6 @@ import escapeHtml from 'escape-html';
 import type { ContextInterface } from '../interfaces/ContextInterface';
 import type { HttpResponseInterface } from '../interfaces/HttpResponseInterface';
 
-import { injectable } from 'inversify';
-
 const hasProp = {}.hasOwnProperty;
 
 /*
@@ -38,10 +36,9 @@ export default (Module) => {
   const {
     CoreObject,
     assert,
-    initialize, partOf, meta, property, method, nameBy,
+    initialize, partOf, meta, property, method, nameBy, injectable,
     Utils: { _, statuses, assign }
   } = Module.NS;
-
 
   @initialize
   @injectable()

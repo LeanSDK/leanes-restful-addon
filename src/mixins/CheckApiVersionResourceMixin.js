@@ -17,14 +17,13 @@ import semver from 'semver';
 
 export default (Module) => {
   const {
-    Resource,
     initializeMixin, meta, method,
     Utils: { assert, statuses }
   } = Module.NS;
 
   const UPGRADE_REQUIRED = statuses('upgrade required');
 
-  Module.defineMixin(__filename, (BaseClass: Class<Resource>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};

@@ -15,7 +15,6 @@
 
 export default (Module) => {
   const {
-    Resource,
     initializeMixin, meta, method,
     Utils: { statuses }
   } = Module.NS;
@@ -23,7 +22,7 @@ export default (Module) => {
   const UNAUTHORIZED = statuses('unauthorized');
   const FORBIDDEN = statuses('forbidden');
 
-  Module.defineMixin(__filename, (BaseClass: Class<Resource>) => {
+  Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};
