@@ -18,33 +18,33 @@ import statuses from 'statuses';
 import action from './decorators/action';
 import loadTemplates from './decorators/loadTemplates';
 
-import BodyParseMixinTF from './mixins/BodyParseMixin';
-import BulkMethodsRendererMixinTF from './mixins/BulkMethodsRendererMixin';
-import CheckAdminOnlyResourceMixinTF from './mixins/CheckAdminOnlyResourceMixin';
-import CheckApiVersionResourceMixinTF from './mixins/CheckApiVersionResourceMixin';
-import CheckSchemaVersionResourceMixinTF from './mixins/CheckSchemaVersionResourceMixin';
-import ContextifyApplicationMediatorMixinTF from './mixins/ContextifyApplicationMediatorMixin';
-import ContextifyApplicationMixinTF from './mixins/ContextifyApplicationMixin';
-import ContextifyResourceExecutionMixinTF from './mixins/ContextifyResourceExecutionMixin';
-import CountMethodsRendererMixinTF from './mixins/CountMethodsRendererMixin';
-import CrudRendererMixinTF from './mixins/CrudRendererMixin';
-import EditableResourceMixinTF from './mixins/EditableResourceMixin';
-import OwnerableResourceMixinTF from './mixins/OwnerableResourceMixin';
-import PerformSyntheticRequestApplicationMixinTF from './mixins/PerformSyntheticRequestApplicationMixin';
-import PerformSyntheticRequestMixinTF from './mixins/PerformSyntheticRequestMixin';
-import TemplatableModuleMixinTF from './mixins/TemplatableModuleMixin';
+import BodyParseMixin from './mixins/BodyParseMixin';
+import BulkMethodsRendererMixin from './mixins/BulkMethodsRendererMixin';
+import CheckAdminOnlyResourceMixin from './mixins/CheckAdminOnlyResourceMixin';
+import CheckApiVersionResourceMixin from './mixins/CheckApiVersionResourceMixin';
+import CheckSchemaVersionResourceMixin from './mixins/CheckSchemaVersionResourceMixin';
+import ContextifyApplicationMediatorMixin from './mixins/ContextifyApplicationMediatorMixin';
+import ContextifyApplicationMixin from './mixins/ContextifyApplicationMixin';
+import ContextifyResourceExecutionMixin from './mixins/ContextifyResourceExecutionMixin';
+import CountMethodsRendererMixin from './mixins/CountMethodsRendererMixin';
+import CrudRendererMixin from './mixins/CrudRendererMixin';
+import EditableResourceMixin from './mixins/EditableResourceMixin';
+import OwnerableResourceMixin from './mixins/OwnerableResourceMixin';
+import PerformSyntheticRequestApplicationMixin from './mixins/PerformSyntheticRequestApplicationMixin';
+import PerformSyntheticRequestMixin from './mixins/PerformSyntheticRequestMixin';
+import TemplatableModuleMixin from './mixins/TemplatableModuleMixin';
 
-import FacadePatchTF from './patches/FacadePatch';
+import FacadePatch from './patches/FacadePatch';
 
-import RequestTF from './context/HttpRequest';
-import ResponseTF from './context/HttpResponse';
-import CookiesTF from './context/HttpCookies';
-import ContextTF from './context/Context';
-import RendererTF from './renderer/Renderer';
+import HttpRequest from './context/HttpRequest';
+import HttpResponse from './context/HttpResponse';
+import HttpCookies from './context/HttpCookies';
+import Context from './context/Context';
+import Renderer from './renderer/Renderer';
 
-import RouterTF from './proxies/Router';
-import HttpMediatorTF from './mediators/HttpMediator';
-import ResourceTF from './commands/Resource';
+import Router from './proxies/Router';
+import HttpMediator from './mediators/HttpMediator';
+import Resource from './commands/Resource';
 
 export type { ResourceListResultT } from './types/ResourceListResultT';
 export type { RendererItemResultT } from './types/RendererItemResultT';
@@ -68,33 +68,34 @@ export default (Module) => {
 
   return ['RestfulAddon', (BaseClass) => {
 
-    @FacadePatchTF
+    @FacadePatch
 
-    @BodyParseMixinTF
-    @BulkMethodsRendererMixinTF
-    @CheckAdminOnlyResourceMixinTF
-    @CheckApiVersionResourceMixinTF
-    @CheckSchemaVersionResourceMixinTF
-    @ContextifyApplicationMediatorMixinTF
-    @ContextifyApplicationMixinTF
-    @ContextifyResourceExecutionMixinTF
-    @CountMethodsRendererMixinTF
-    @CrudRendererMixinTF
-    @EditableResourceMixinTF
-    @OwnerableResourceMixinTF
-    @PerformSyntheticRequestApplicationMixinTF
-    @PerformSyntheticRequestMixinTF
-    @TemplatableModuleMixinTF
+    @BodyParseMixin
+    @BulkMethodsRendererMixin
+    @CheckAdminOnlyResourceMixin
+    @CheckApiVersionResourceMixin
+    @CheckSchemaVersionResourceMixin
+    @ContextifyApplicationMediatorMixin
+    @ContextifyApplicationMixin
+    @ContextifyResourceExecutionMixin
+    @CountMethodsRendererMixin
+    @CrudRendererMixin
+    @EditableResourceMixin
+    @OwnerableResourceMixin
+    @PerformSyntheticRequestApplicationMixin
+    @PerformSyntheticRequestMixin
+    @TemplatableModuleMixin
 
-    @ResourceTF
-    @HttpMediatorTF
-    @RouterTF
+    @Resource
+    @HttpMediator
+    @Router
 
-    @RendererTF
-    @ContextTF
-    @CookiesTF
-    @ResponseTF
-    @RequestTF
+    @Renderer
+    @Context
+    @HttpCookies
+    @HttpResponse
+    @HttpRequest
+
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};
