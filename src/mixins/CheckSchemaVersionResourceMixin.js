@@ -14,28 +14,28 @@
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
 import type { CollectionInterface } from '../interfaces/CollectionInterface';
+import type { RecordInterface } from '../interfaces/RecordInterface';
 
 export default (Module) => {
   const {
-    MIGRATIONS,
     initializeMixin, meta, method, property, inject,
     Utils: { assert }
   } = Module.NS;
 
   Module.defineMixin(__filename, (BaseClass) => {
     @initializeMixin
-    class Mixin extends BaseClass {
+    class Mixin< D = RecordInterface > extends BaseClass {
       @meta static object = {};
 
-      @inject(`Factory<${MIGRATIONS}>`)
-      @property _migrationsFactory: () => CollectionInterface;
+      @inject('CollectionFactory<*>')
+      @property _collectionFactory: () => CollectionInterface<D>;
 
       @property get _migrations(): CollectionInterface {
-        return this._migrationsFactory();
+        return this._collectionFactory(this.ApplicationModule.NS.MIGRATIONS);
       }
 
       @method async checkSchemaVersion(...args) {
-        const migrationNames = this.Module.NS.MIGRATION_NAMES;
+        const migrationNames = this.ApplicationModule.NS.MIGRATION_NAMES;
         const [ lastMigration ] = slice.call(migrationNames, -1);
         if (lastMigration == null) {
           return args;

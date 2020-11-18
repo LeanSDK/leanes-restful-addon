@@ -20,7 +20,6 @@ describe('Resource', () => {
       expect(() => {
         @initialize
         @plugin(RestfulAddon)
-        @plugin(MapperAddon)
         class Test extends LeanES {
           @nameBy static __filename = 'Test';
           @meta static object = {};
@@ -35,7 +34,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -59,7 +57,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -83,7 +80,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -107,7 +103,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -325,7 +320,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -354,7 +348,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -392,7 +385,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -428,7 +420,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -476,7 +467,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -549,7 +539,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1563,7 +1552,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1676,7 +1664,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1737,7 +1724,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -1803,7 +1789,6 @@ describe('Resource', () => {
 
       @initialize
       @plugin(RestfulAddon)
-      @plugin(MapperAddon)
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
