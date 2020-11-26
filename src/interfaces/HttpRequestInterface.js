@@ -18,53 +18,53 @@ export interface HttpRequestInterface {
 
   body: ?any;
 
-  +header: object;
+  // +header: object;
 
-  +headers: object;
+  // +headers: object;
 
-  +originalUrl: string;
+  // +originalUrl: string;
 
-  url: string;
+  // url: string;
 
-  +origin: string;
+  // +origin: string;
 
-  +href: string;
+  // +href: string;
 
-  method: string;
+  // method: string;
 
-  path: string;
+  // path: string;
 
-  query: object;
+  // query: object;
 
-  querystring: string;
+  // querystring: string;
 
-  search: string;
+  // search: string;
 
-  +host: string;
+  // +host: string;
 
-  +hostname: string;
+  // +hostname: string;
 
-  +fresh: boolean;
+  // +fresh: boolean;
 
-  +stale: boolean;
+  // +stale: boolean;
 
-  +idempotent: boolean;
+  // +idempotent: boolean;
 
-  +socket: ?object;
+  // +socket: ?object;
 
-  +charset: string;
+  // +charset: string;
 
-  +length: number;
+  // +length: number;
 
-  +protocol: 'http' | 'https';
+  // +protocol: 'http' | 'https';
 
-  +secure: boolean;
+  // +secure: boolean;
 
-  ip: ?string;
+  // ip: ?string;
 
-  +ips: string[];
+  // +ips: string[];
 
-  +subdomains: string[];
+  // +subdomains: string[];
 
   accepts(...args: [?(string | Array)]): string | Array | boolean;
 
@@ -76,7 +76,7 @@ export interface HttpRequestInterface {
 
   is(...args: [string | Array]): ?(string | boolean);
 
-  +type: string;
+  // +type: string;
 
   'get'(field: string): string;
 

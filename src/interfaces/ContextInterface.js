@@ -43,45 +43,45 @@ export interface ContextInterface {
   onerror(err: ?any): void;
 
   // Request aliases
-  +header: object;
+  // +header: object;
 
-  +headers: object;
+  // +headers: object;
 
-  method: string;
+  // method: string;
 
-  url: string;
+  // url: string;
 
-  originalUrl: string;
+  // originalUrl: string;
 
-  +origin: string;
+  // +origin: string;
 
-  +href: string;
+  // +href: string;
 
-  path: string;
+  // path: string;
 
-  query: object;
+  // query: object;
 
-  querystring: string;
+  // querystring: string;
 
-  +host: string;
+  // +host: string;
 
-  +hostname: string;
+  // +hostname: string;
 
-  +fresh: boolean;
+  // +fresh: boolean;
 
-  +stale: boolean;
+  // +stale: boolean;
 
-  +socket: ?object;
+  // +socket: ?object;
 
-  +protocol: string;
+  // +protocol: string;
 
-  +secure: boolean;
+  // +secure: boolean;
 
-  +ip: ?string;
+  // +ip: ?string;
 
-  +ips: string[];
+  // +ips: string[];
 
-  +subdomains: string[];
+  // +subdomains: string[];
 
   is(...args: [string | Array]): ?(string | boolean);
 
@@ -96,19 +96,19 @@ export interface ContextInterface {
   'get'(...args: [string]): string;
 
   // Response aliases
-  body: any;
+  // body: any;
 
-  status: ?number;
+  // status: ?number;
 
-  message: string;
+  // message: string;
 
-  length: number;
+  // length: number;
 
-  +writable: boolean;
+  // +writable: boolean;
 
-  type: ?string;
+  // type: ?string;
 
-  +headerSent: ?boolean;
+  // +headerSent: ?boolean;
 
   'set'(...args: [string | object]): ?any;
 

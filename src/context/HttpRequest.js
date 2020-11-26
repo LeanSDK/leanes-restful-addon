@@ -51,7 +51,7 @@ export default (Module) => {
       return this._req;
     }
 
-    @property ctx: ContextInterface = null;
+    @property ctx: ContextInterface; // = null;
 
     @property body: ?any = null;
 

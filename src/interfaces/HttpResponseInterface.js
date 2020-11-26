@@ -16,23 +16,23 @@
 export interface HttpResponseInterface {
   +res: object; // native response object
 
-  +socket: ?object;
+  // +socket: ?object;
 
-  +header: objec;
+  // +header: object;
 
-  +headers: object;
+  // +headers: object;
 
-  status: ?number;
+  // status: ?number;
 
-  message: string;
+  // message: string;
 
   body: any;
 
-  length: number;
+  // length: number;
 
-  +headerSent: ?boolean;
+  // +headerSent: ?boolean;
 
-  type: ?string;
+  // type: ?string;
 
   is(...args: [string | Array]): ?(string | boolean);
 
@@ -44,7 +44,7 @@ export interface HttpResponseInterface {
 
   remove(field: string): void;
 
-  +writable: boolean;
+  // +writable: boolean;
 
   flushHeaders(): void;
 

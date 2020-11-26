@@ -34,13 +34,13 @@ export default (Module) => {
     @meta static object = {};
 
     // ipoCookies = PointerT(Cookies.protected({
-    @property _cookies: object = null;
+    @property _cookies: ?object = null;
 
-    @property req: object = null;
+    @property req: ?object = null;
 
-    @property res: object = null;
+    @property res: ?object = null;
 
-    @property key: string = null;
+    @property key: ?string = null;
 
     @method 'get'(name: string, opts: ?object): ?string {
       return this._cookies.get(name, opts);

@@ -53,7 +53,7 @@ export default (Module) => {
       return this._res;
     }
 
-    @property ctx: ContextInterface = null;
+    @property ctx: ContextInterface; // = null;
 
     @property get socket(): ?object {
       return this.ctx.req.socket;

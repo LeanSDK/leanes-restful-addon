@@ -1,6 +1,7 @@
 const { expect, assert } = require('chai');
-const RestfulAddon = require('../../src/index.js');
-const LeanES = require('leanes/src/leanes').default;
+const addonPath = process.env.ENV === 'build' ? "../../lib/index.dev" : "../../src/index.js";
+const RestfulAddon = require(addonPath).default;
+const LeanES = require('@leansdk/leanes/src').default;
 const {
   CoreObject,
   initialize, partOf, nameBy, meta, plugin
@@ -20,7 +21,7 @@ describe('action', () => {
 
         @initialize
         @partOf(Test)
-        class SubTest extends LeanES.NS.CoreObject {
+        class SubTest extends Test.NS.CoreObject {
           @nameBy static __filename = 'SubTest';
           @meta static object = {};
           @Test.NS.action test() {}
@@ -40,7 +41,7 @@ describe('action', () => {
 
         @initialize
         @partOf(Test)
-        class SubTest extends LeanES.NS.CoreObject {
+        class SubTest extends Test.NS.CoreObject {
           @nameBy static __filename = 'SubTest';
           @meta static object = {};
           @Test.NS.action static test() {}
