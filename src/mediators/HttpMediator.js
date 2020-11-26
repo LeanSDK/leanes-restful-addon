@@ -202,6 +202,7 @@ export default (Module) => {
 
     @method onRegister() {
       const voEmitter = new EventEmitter();
+      voEmitter.setMaxListeners(Number.MAX_SAFE_INTEGER);
       if (!_.isFunction(voEmitter.eventNames)) {
         const eventNames = this._eventNames = {};
         const FILTER = ['newListener', 'removeListener'];
