@@ -33,7 +33,7 @@ export default function loadTemplates(Module) {
   const vsRoot = Module.prototype.ROOT != null ? Module.prototype.ROOT : '.';
   const vsTemplatesDir = `${vsRoot}/templates`;
   const files = filesTreeSync(vsTemplatesDir, {
-    filesOnly: true
+    filesOnly: true, nosort: true
   });
   const templatesList = (files != null ? files : []).map((i) => {
     const templateName = i.replace(/\.js/, '');
