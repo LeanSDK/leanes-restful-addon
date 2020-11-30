@@ -32,7 +32,6 @@ import EditableResourceMixin from './mixins/EditableResourceMixin';
 import OwnerableResourceMixin from './mixins/OwnerableResourceMixin';
 import PerformSyntheticRequestApplicationMixin from './mixins/PerformSyntheticRequestApplicationMixin';
 import PerformSyntheticRequestMixin from './mixins/PerformSyntheticRequestMixin';
-import TemplatableModuleMixin from './mixins/TemplatableModuleMixin';
 
 import FacadePatch from './patches/FacadePatch';
 
@@ -45,6 +44,8 @@ import Renderer from './renderer/Renderer';
 import Router from './proxies/Router';
 import HttpMediator from './mediators/HttpMediator';
 import Resource from './commands/Resource';
+
+import TemplatableModule from './TemplatableModule';
 
 export type { ResourceListResultT } from './types/ResourceListResultT';
 export type { RendererItemResultT } from './types/RendererItemResultT';
@@ -60,6 +61,8 @@ export type { ResourceInterface } from './interfaces/ResourceInterface';
 export type { RendererInterface } from './interfaces/RendererInterface';
 export type { RouterInterface } from './interfaces/RouterInterface';
 export type { HttpMediatorInterface } from './interfaces/HttpMediatorInterface';
+
+export { TemplatableModule };
 
 export default (Module) => {
   const {
@@ -84,7 +87,6 @@ export default (Module) => {
     @OwnerableResourceMixin
     @PerformSyntheticRequestApplicationMixin
     @PerformSyntheticRequestMixin
-    @TemplatableModuleMixin
 
     @Resource
     @HttpMediator

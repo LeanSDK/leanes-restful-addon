@@ -25,7 +25,7 @@ export default (Module) => {
   const cpoTemplates = Symbol.for('~templates');
   const cpmTemplatesHandler = Symbol.for('~templatesHandler');
 
-  Module.defineMixin(__filename, (BaseClass) => {
+  return ['TemplatableModule', (BaseClass) => {
     @initializeMixin
     class Mixin extends BaseClass {
       @meta static object = {};
@@ -103,5 +103,5 @@ export default (Module) => {
       }
     });
     return Mixin;
-  });
+  }]
 }
