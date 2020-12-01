@@ -4,8 +4,8 @@ extension:
   - 'js'
 file:
   # - './test/commands/Resource-test.js'
-  - './test/context/Context-test.js'
-  # - './test/context/HttpCookies-test.js'
+  # - './test/context/Context-test.js'
+  - './test/context/HttpCookies-test.js'
   # - './test/context/HttpResponse-test.js'
   # - './test/context/HttpRequest-test.js'
   # - './test/decorators/action-test.js'

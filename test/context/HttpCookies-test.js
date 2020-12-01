@@ -141,7 +141,7 @@ describe('Cookies', () => {
       const promise = new Promise((resolve) => {
         trigger.once('REQUEST', resolve);
       });
-      const keys = new Keygrip([COOKIE_KEY], 'shsa256', 'hex');
+      const keys = new Keygrip([COOKIE_KEY], 'sha256', 'hex');
       Test.NS.Utils.request.get('http://localhost:8888/', {
         headers: {
           'Cookie': `${COOKIE_NAME}=${COOKIE_VALUE}; ${COOKIE_NAME}.sig=${keys.sign(`${COOKIE_NAME}=${COOKIE_VALUE}`)}`
@@ -160,7 +160,7 @@ describe('Cookies', () => {
       const cookieValue = cookies.get(COOKIE_NAME);
       assert.equal(cookieValue, COOKIE_VALUE);
       const encriptedCookieValue = cookies.get(`${COOKIE_NAME}.sig`);
-      assert.equal(encriptedCookieValue, keys.sign, `${COOKIE_NAME}=${COOKIE_VALUE}`);
+      assert.equal(encriptedCookieValue, keys.sign(`${COOKIE_NAME}=${COOKIE_VALUE}`));
     });
   });
 });
