@@ -2,10 +2,11 @@ const { IncomingMessage, ServerResponse } = require('http');
 const { expect, assert } = require('chai');
 const sinon = require('sinon');
 const _ = require('lodash');
-const RestfulAddon = require('../../src/index.js');
-const LeanES = require('leanes/src/leanes').default;
+const addonPath = process.env.ENV === 'build' ? "../../lib/index.dev" : "../../src/index.js";
+const RestfulAddon = require(addonPath).default;
+const LeanES = require('@leansdk/leanes/src').default;
 const {
-  initialize, partOf, nameBy, meta, constant, mixin, plugin
+  initialize, partOf, nameBy, meta, constant, mixin, plugin, property
 } = LeanES.NS;
 
 describe('BodyParseMixin', () => {
@@ -45,13 +46,20 @@ describe('BodyParseMixin', () => {
         @meta static object = {};
         @constant ROOT = `${__dirname}/config/root`;
       }
-      const facade = Test.NS.Facade.getInstance(KEY);
-      const configs = Test.NS.Configuration.new(Test.NS.CONFIGURATION, Test.NS.ROOT);
-      facade.registerProxy(configs);
 
       @initialize
-      @mixin(Test.NS.BodyParseMixin)
       @partOf(Test)
+      class ApplicationFacade extends Test.NS.Facade {
+        @nameBy static __filename = 'ApplicationFacade';
+        @meta static object = {};
+      }
+      const facade = Test.NS.Facade.getInstance(KEY);
+      // const configs = Test.NS.Configuration.new(Test.NS.CONFIGURATION, Test.NS.ROOT);
+      // facade.registerProxy(configs);
+
+      @initialize
+      @partOf(Test)
+      @mixin(Test.NS.BodyParseMixin)
       class TestResource extends Test.NS.Resource {
         @nameBy static __filename = 'TestResource';
         @meta static object = {};
@@ -65,11 +73,11 @@ describe('BodyParseMixin', () => {
         @nameBy static __filename = 'TestRouter';
         @meta static object = {};
       }
-      facade.registerProxy(TestRouter.new('TEST_SWITCH_ROUTER'));
+      facade.addProxy('TEST_SWITCH_ROUTER', 'TestRouter');
 
       @initialize
       @partOf(Test)
-      class TestSwitch extends Test.NS.Switch {
+      class TestSwitch extends Test.NS.HttpMediator {
         @nameBy static __filename = 'TestSwitch';
         @meta static object = {};
 
@@ -95,10 +103,12 @@ describe('BodyParseMixin', () => {
       class MyResponse extends ServerResponse { }
       const req = new MyRequest();
       const res = new MyResponse(req);
-      facade.registerMediator(TestSwitch.new('TEST_SWITCH_MEDIATOR'));
-      const switchMediator = facade.retrieveMediator('TEST_SWITCH_MEDIATOR');
+      facade.addMediator('TEST_SWITCH_MEDIATOR', 'TestSwitch');
+      const switchMediator = facade.getMediator('TEST_SWITCH_MEDIATOR');
       const resource = TestResource.new()
-      resource.context = Test.NS.Context.new(req, res, switchMediator);
+      const context = Test.NS.Context.new();
+      context.setReqResPair(req, res);
+      resource.context = context;
       await resource.parseBody();
       assert.deepEqual(resource.context.request.body, { test: 'test' });
       facade.remove();

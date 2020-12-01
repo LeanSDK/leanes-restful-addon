@@ -5,8 +5,9 @@ const sinon = require('sinon');
 const _ = require('lodash');
 const NodeCookies = require('cookies');
 const Keygrip = require('keygrip');
-const RestfulAddon = require('../../src/index.js');
-const LeanES = require('leanes/src/leanes').default;
+const addonPath = process.env.ENV === 'build' ? "../../lib/index.dev" : "../../src/index.js";
+const RestfulAddon = require(addonPath).default;
+const LeanES = require('@leansdk/leanes/src').default;
 const {
   initialize, partOf, nameBy, meta, constant, property, plugin
 } = LeanES.NS;
@@ -39,12 +40,13 @@ describe('Cookies', () => {
       const response = {};
       const options = {
         key: 'KEY',
-        secure: 'SECURE'
+        secure: true
       };
-      const cookies = Cookies.new(request, response, options);
+      const cookies = Cookies.new();
+      cookies.setReqResOpts(request, response, options);
       assert.instanceOf(cookies, Cookies);
-      assert.equal(cookies.request, request);
-      assert.equal(cookies.response, response);
+      assert.equal(cookies.req, request);
+      assert.equal(cookies.res, response);
       assert.equal(cookies.key, 'KEY');
       assert.instanceOf(cookies._cookies, NodeCookies);
     });
@@ -80,15 +82,17 @@ describe('Cookies', () => {
       const promise = new Promise((resolve) => {
         trigger.once('REQUEST', resolve);
       });
-      LeanES.NS.Utils.request.get('http://localhost:8888/');
+      Test.NS.Utils.request.get('http://localhost:8888/');
       const {
         res: response,
         req: request
       } = await promise;
       const options = {
-        key: COOKIE_KEY
+        key: COOKIE_KEY,
+        secure: false
       };
-      const cookies = Cookies.new(request, response, options);
+      const cookies = Cookies.new();
+      cookies.setReqResOpts(request, response, options);
       const startDate = Date.now();
       cookies.set(COOKIE_NAME, COOKIE_VALUE, {
         maxAge: MAX_AGE,
@@ -138,7 +142,7 @@ describe('Cookies', () => {
         trigger.once('REQUEST', resolve);
       });
       const keys = new Keygrip([COOKIE_KEY], 'shsa256', 'hex');
-      LeanES.NS.Utils.request.get('http://localhost:8888/', {
+      Test.NS.Utils.request.get('http://localhost:8888/', {
         headers: {
           'Cookie': `${COOKIE_NAME}=${COOKIE_VALUE}; ${COOKIE_NAME}.sig=${keys.sign(`${COOKIE_NAME}=${COOKIE_VALUE}`)}`
         }
@@ -148,9 +152,11 @@ describe('Cookies', () => {
         req: request
       } = await promise;
       const options = {
-        key: COOKIE_KEY
+        key: COOKIE_KEY,
+        secure: false
       };
-      const cookies = Cookies.new(request, response, options);
+      const cookies = Cookies.new();
+      cookies.setReqResOpts(request, response, options);
       const cookieValue = cookies.get(COOKIE_NAME);
       assert.equal(cookieValue, COOKIE_VALUE);
       const encriptedCookieValue = cookies.get(`${COOKIE_NAME}.sig`);

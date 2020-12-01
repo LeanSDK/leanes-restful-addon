@@ -14,11 +14,11 @@
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
 export interface HttpCookiesInterface {
-  req: object;
+  req: ?object;
 
-  res: object;
+  res: ?object;
 
-  key: string;
+  key: ?string;
 
   'get'(name: string, opts: ?object): ?string;
 

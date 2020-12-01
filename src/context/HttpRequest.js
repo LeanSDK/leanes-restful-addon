@@ -42,7 +42,7 @@ export default (Module) => {
   @partOf(Module)
   // @mixin(ConfigurableMixin)
   class HttpRequest extends CoreObject implements HttpRequestInterface {
-    @nameBy static  __filename = __filename;
+    @nameBy static __filename = __filename;
     @meta static object = {};
 
     @property _req: object = null; // native request object
@@ -274,7 +274,7 @@ export default (Module) => {
     }
 
     @method is(...args: [string | Array]): ?(string | boolean) {
-      let [ types ] = args;
+      let [types] = args;
       if (!types)
         return typeis(this.req);
       if (!_.isArray(types))

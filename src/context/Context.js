@@ -42,7 +42,7 @@ export default (Module) => {
   @partOf(Module)
   // @mixin(ConfigurableMixin)
   class Context extends CoreObject implements ContextInterface {
-    @nameBy static  __filename = __filename;
+    @nameBy static __filename = __filename;
     @meta static object = {};
 
     @inject(`Factory<${HTTP_MEDIATOR}>`)
@@ -89,7 +89,7 @@ export default (Module) => {
 
     @property isPerformExecution: boolean = false;
 
-    @method 'throw'(...args: [string | number, ?string, ?object]): void {
+    @method 'throw'(...args: [string | number,?string,?object]): void {
       throw createError(...args);
     }
 
@@ -109,7 +109,7 @@ export default (Module) => {
       if (headerSent) return;
 
       if (_.isFunction(this.res.getHeaderNames))
-        this.res.getHeaderNames().forEach((name) => {this.res.removeHeader(name)});
+        this.res.getHeaderNames().forEach((name) => { this.res.removeHeader(name) });
 
       const vlHeaderNames = Object.keys(this.res.headers || {});
 
@@ -169,7 +169,7 @@ export default (Module) => {
       return this.request.url = url;
     }
 
-    @property originalUrl: string = null;
+    @property originalUrl: string;
 
     @property get origin(): string {
       return this.request.origin;
@@ -255,7 +255,7 @@ export default (Module) => {
       return this.request.acceptsEncodings(...args);
     }
 
-    @method acceptsCharsets(...args: [?(string | Array)]): string | Array  {
+    @method acceptsCharsets(...args: [?(string | Array)]): string | Array {
       return this.request.acceptsCharsets(...args);
     }
 
@@ -320,7 +320,7 @@ export default (Module) => {
       return this.response.redirect(...args);
     }
 
-    @method attachment(...args: [string]): void  {
+    @method attachment(...args: [string]): void {
       return this.response.attachment(...args);
     }
 
@@ -370,7 +370,7 @@ export default (Module) => {
       const secure = req.secure;
       // this.cookies = HttpCookies.new(req, res, {key, secure});
       // this.cookies = HttpCookies.new();
-      this.cookies.setReqResOpts(req, res, {key, secure});
+      this.cookies.setReqResOpts(req, res, { key, secure });
     }
 
     @method static async restoreObject() {
