@@ -3,14 +3,14 @@ color: true
 extension:
   - 'js'
 file:
-  # - './test/commands/Resource-test.js'
-  # - './test/context/Context-test.js'
+  - './test/commands/Resource-test.js'
+  - './test/context/Context-test.js'
   - './test/context/HttpCookies-test.js'
-  # - './test/context/HttpResponse-test.js'
-  # - './test/context/HttpRequest-test.js'
-  # - './test/decorators/action-test.js'
-  # - './test/mediators/HttpMediator-test.js'
+  - './test/context/HttpResponse-test.js'
+  - './test/context/HttpRequest-test.js'
+  - './test/decorators/action-test.js'
   # - './test/mixins/BodyParseMixin-test.js'
+  # - './test/mediators/HttpMediator-test.js'
   # - './test/proxies/Router-test.js'
   # - './test/renderer/Renderer-test.js'
 full-trace: true

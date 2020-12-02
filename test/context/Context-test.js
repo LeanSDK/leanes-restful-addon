@@ -8,7 +8,7 @@ const addonPath = process.env.ENV === 'build' ? "../../lib/index.dev" : "../../s
 const RestfulAddon = require(addonPath).default;
 const LeanES = require('@leansdk/leanes/src').default;
 const {
-  initialize, partOf, nameBy, meta, constant, property, plugin
+  initialize, partOf, nameBy, meta, constant, property, plugin, resolver
 } = LeanES.NS;
 
 describe('Context', () => {
@@ -66,7 +66,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -165,7 +165,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -270,7 +270,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -374,7 +374,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -473,7 +473,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -572,7 +572,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -675,7 +675,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -779,7 +779,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -880,7 +880,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -984,7 +984,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -1093,7 +1093,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -1197,7 +1197,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -1307,7 +1307,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -1411,7 +1411,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -1539,7 +1539,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -1668,7 +1668,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -1788,7 +1788,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -1908,7 +1908,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2005,7 +2005,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2148,7 +2148,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2291,7 +2291,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2387,7 +2387,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2483,7 +2483,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2590,7 +2590,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2688,7 +2688,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2785,7 +2785,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2882,7 +2882,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -2979,7 +2979,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -3076,7 +3076,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -3178,7 +3178,7 @@ describe('Context', () => {
       class MyResponse extends EventEmitter {
         _headers = {}
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -3212,7 +3212,7 @@ describe('Context', () => {
           'x-forwarded-for': '192.168.0.1'
         },
         getHeaders: function () {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         },
         setHeader: function (field, value) {
           return this._headers[field.toLowerCase()] = value;
@@ -3340,7 +3340,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -3455,7 +3455,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -3557,7 +3557,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -3668,7 +3668,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -3792,7 +3792,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -3903,7 +3903,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4002,7 +4002,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4120,7 +4120,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4223,7 +4223,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4338,7 +4338,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4442,7 +4442,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4542,7 +4542,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4663,7 +4663,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4765,7 +4765,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4867,7 +4867,7 @@ describe('Context', () => {
         statusMessage = 'OK';
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {
@@ -4972,7 +4972,7 @@ describe('Context', () => {
         _headers = {}
 
         getHeaders() {
-          return Test.NS.Utils.copy(this._headers);
+          return LeanES.NS.Utils.copy(this._headers);
         }
 
         getHeader(field) {

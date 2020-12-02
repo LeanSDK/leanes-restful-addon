@@ -23,8 +23,8 @@ describe('BodyParseMixin', () => {
         }
 
         @initialize
-        @mixin(Test.NS.BodyParseMixin)
         @partOf(Test)
+        @mixin(Test.NS.BodyParseMixin)
         class TestResource extends Test.NS.Resource {
           @nameBy static __filename = 'TestResource';
           @meta static object = {};
@@ -53,9 +53,7 @@ describe('BodyParseMixin', () => {
         @nameBy static __filename = 'ApplicationFacade';
         @meta static object = {};
       }
-      const facade = Test.NS.Facade.getInstance(KEY);
-      // const configs = Test.NS.Configuration.new(Test.NS.CONFIGURATION, Test.NS.ROOT);
-      // facade.registerProxy(configs);
+      const facade = ApplicationFacade.getInstance(KEY);
 
       @initialize
       @partOf(Test)
@@ -83,7 +81,7 @@ describe('BodyParseMixin', () => {
 
         @property routerName = 'TEST_SWITCH_ROUTER';
       }
-      const body = '{"test":"test"}';
+      const body = '{"test": "test"}';
 
       class MyRequest extends IncomingMessage {
         constructor(socket) {
@@ -93,7 +91,7 @@ describe('BodyParseMixin', () => {
           this.headers = {
             'x-forwarded-for': '192.168.0.1',
             'content-type': 'application/json',
-            'content-length': "#{body.length}"
+            'content-length': `${body.length}`
           }
           this.push(body);
           this.push(null);
@@ -103,14 +101,21 @@ describe('BodyParseMixin', () => {
       class MyResponse extends ServerResponse { }
       const req = new MyRequest();
       const res = new MyResponse(req);
+      console.log('...............', req.body);
+
       facade.addMediator('TEST_SWITCH_MEDIATOR', 'TestSwitch');
       const switchMediator = facade.getMediator('TEST_SWITCH_MEDIATOR');
       const resource = TestResource.new()
       const context = Test.NS.Context.new();
+      context.request = Test.NS.HttpRequest.new();
+      context.response = Test.NS.HttpResponse.new();
+      context.cookies = Test.NS.HttpCookies.new();
       context.setReqResPair(req, res);
       resource.context = context;
       await resource.parseBody();
-      assert.deepEqual(resource.context.request.body, { test: 'test' });
+      console.log('??????????????', resource.context.request);
+
+      assert.deepEqual(resource.context.req.body, { test: 'test' });
       facade.remove();
     });
   });

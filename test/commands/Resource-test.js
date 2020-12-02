@@ -8,7 +8,6 @@ const RestfulAddon = require(addonPath).default;
 const MapperAddon = require('@leansdk/leanes-mapper-addon/src').default;
 const LeanES = require('@leansdk/leanes/src').default;
 const {
-  Resource,
   initialize, partOf, nameBy, meta, constant, mixin, property, method, plugin
 } = LeanES.NS;
 
