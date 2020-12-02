@@ -8,7 +8,7 @@ const addonPath = process.env.ENV === 'build' ? "../../lib/index.dev" : "../../s
 const RestfulAddon = require(addonPath).default;
 const LeanES = require('@leansdk/leanes/src').default;
 const {
-  initialize, partOf, nameBy, meta, constant, property, plugin, resolver
+  initialize, partOf, nameBy, meta, constant, property, plugin, resolver, method
 } = LeanES.NS;
 
 describe('Context', () => {
@@ -22,6 +22,7 @@ describe('Context', () => {
 
       @initialize
       @plugin(RestfulAddon)
+      @resolver(require, name => require(name))
       class Test extends LeanES {
         @nameBy static __filename = 'Test';
         @meta static object = {};
@@ -33,6 +34,11 @@ describe('Context', () => {
       class ApplicationFacade extends Test.NS.Facade {
         @nameBy static __filename = 'ApplicationFacade';
         @meta static object = {};
+
+        @method initializeFacade(): void {
+          super.initializeFacade();
+          this.rebind('ApplicationModule').toConstructor(this.Module);
+        }
       }
       facade = ApplicationFacade.getInstance(KEY);
 

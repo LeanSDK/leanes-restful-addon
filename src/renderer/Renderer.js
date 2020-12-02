@@ -23,7 +23,7 @@ import type { RendererItemResultT } from '../types/RendererItemResultT';
 
 export default (Module) => {
   const {
-    APPLICATION_MEDIATOR,
+    // APPLICATION_MEDIATOR,
     CoreObject,
     initialize, partOf, meta, method, nameBy, property, injectable, inject,
   } = Module.NS;
@@ -35,12 +35,19 @@ export default (Module) => {
     @nameBy static  __filename = __filename;
     @meta static object = {};
 
-    @inject(`Factory<${APPLICATION_MEDIATOR}>`)
-    @property _appMediatorFactory: () => MediatorInterface;
+    @inject('ApplicationModule')
+    @property _ApplicationModule: Class<*>;
 
-    @property get _appMediator(): MediatorInterface {
-      return this._appMediatorFactory();
+    @property get ApplicationModule(): Class<*> {
+      return this._ApplicationModule;
     }
+
+    // @inject(`Factory<${APPLICATION_MEDIATOR}>`)
+    // @property _appMediatorFactory: () => MediatorInterface;
+    //
+    // @property get _appMediator(): MediatorInterface {
+    //   return this._appMediatorFactory();
+    // }
 
     @method async render<
       T = any, S = ResourceInterface, R = ?(RendererListResultT | RendererItemResultT | any)
@@ -57,8 +64,9 @@ export default (Module) => {
         template: templatePath
       } = opts;
       if ((path != null) && (resourceName != null) && (action != null)) {
-        const service = this._appMediator.getViewComponent();
-        const { Templates } = service.Module.NS;
+        // const service = this._appMediator.getViewComponent();
+        // const { Templates } = service.Module.NS;
+        const { Templates } = this.ApplicationModule.NS;
         return await Promise.resolve().then(() => {
           if (Templates == null) return aoData;
           if (Templates[templatePath] == null) return aoData;

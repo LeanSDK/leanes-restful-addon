@@ -32,8 +32,7 @@ import EditableResourceMixin from './mixins/EditableResourceMixin';
 import OwnerableResourceMixin from './mixins/OwnerableResourceMixin';
 import PerformSyntheticRequestApplicationMixin from './mixins/PerformSyntheticRequestApplicationMixin';
 import PerformSyntheticRequestMixin from './mixins/PerformSyntheticRequestMixin';
-
-import FacadePatch from './patches/FacadePatch';
+import RestfulFacadeMixin from './mixins/RestfulFacadeMixin';
 
 import HttpRequest from './context/HttpRequest';
 import HttpResponse from './context/HttpResponse';
@@ -66,12 +65,13 @@ export { TemplatableModule };
 
 export default (Module) => {
   const {
-    initializeMixin, meta, constant, method, patch, decorator, util
+    initializeMixin, meta, constant, method, extend, decorator, util
   } = Module.NS;
 
   return ['RestfulAddon', (BaseClass) => {
+    @extend('RestfulFacadeMixin', 'Facade')
 
-    @FacadePatch
+    @RestfulFacadeMixin
 
     @BodyParseMixin
     @BulkMethodsRendererMixin
@@ -140,10 +140,6 @@ export default (Module) => {
       @decorator loadTemplates = loadTemplates;
 
       @util statuses = statuses;
-
-      @method static including() {
-        patch(this.NS.FacadePatch)(this.NS.Facade);
-      }
     }
     return Mixin;
   }]
