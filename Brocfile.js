@@ -20,6 +20,12 @@ const dev = new Rollup(appRoot, {
   rollup: {
     input: __dirname + "/src/index.js",
     external: [
+      'accepts', 'http-errors', 'keygrip', 'cookies',
+      'type-is', 'content-type', 'parseurl', 'fresh', 'mime-types', 'path',
+      'on-finished', 'destroy', 'vary', 'error-inject', 'content-disposition', 'escape-html',
+      'path-to-regexp', 'http',
+      'co-body', 'semver', 'statuses',
+      'assert',
       'crypto',
       'net',
       'dns',
@@ -40,7 +46,7 @@ const dev = new Rollup(appRoot, {
       }),
       nodeResolve({
         extensions,
-        browser: true,
+        browser: false,
         preferBuiltins: false,
       }),
       commonjs({
@@ -52,7 +58,8 @@ const dev = new Rollup(appRoot, {
         sourceMap: true,
         exclude: "node_modules/**",
         presets: [
-          "@babel/preset-env"
+          // "@babel/preset-env"
+          ["@babel/preset-env", {targets: {node: '14.9'}, loose: true, useBuiltIns: false}]
         ],
         plugins: [
           "@babel/plugin-syntax-flow",
@@ -91,6 +98,12 @@ const prod = new Rollup(appRoot, {
   rollup: {
     input: __dirname + "/src/index.js",
     external: [
+      'accepts', 'http-errors', 'keygrip', 'cookies',
+      'type-is', 'content-type', 'parseurl', 'fresh', 'mime-types', 'path',
+      'on-finished', 'destroy', 'vary', 'error-inject', 'content-disposition', 'escape-html',
+      'path-to-regexp', 'http',
+      'co-body', 'semver', 'statuses',
+      'assert',
       'crypto',
       'net',
       'dns',
@@ -111,7 +124,7 @@ const prod = new Rollup(appRoot, {
       }),
       nodeResolve({
         extensions,
-        browser: true,
+        browser: false,
         preferBuiltins: false,
       }),
       commonjs({
@@ -120,10 +133,11 @@ const prod = new Rollup(appRoot, {
       }),
       babel({
         extensions,
-        sourceMap: true,
+        sourceMap: false,
         exclude: "node_modules/**",
         presets: [
-          "@babel/preset-env"
+          // "@babel/preset-env"
+          ["@babel/preset-env", {targets: {node: '14.9'}, loose: true, useBuiltIns: false}]
         ],
         plugins: [
           "@babel/plugin-syntax-flow",

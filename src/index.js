@@ -62,6 +62,7 @@ export type { RouterInterface } from './interfaces/RouterInterface';
 export type { HttpMediatorInterface } from './interfaces/HttpMediatorInterface';
 
 export { TemplatableModule };
+export { loadTemplates };
 
 export default (Module) => {
   const {
@@ -137,7 +138,6 @@ export default (Module) => {
       ];
 
       @decorator action = action;
-      @decorator loadTemplates = loadTemplates;
 
       @util statuses = statuses;
     }

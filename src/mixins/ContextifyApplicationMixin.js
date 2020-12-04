@@ -13,7 +13,7 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import type { ContextInterface } from '../interfaces/ResourceInterface';
+import type { ContextInterface } from '../interfaces/ContextInterface';
 import type { ResourceInterface } from '../interfaces/ResourceInterface';
 
 export default (Module) => {
