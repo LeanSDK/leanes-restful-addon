@@ -16,6 +16,8 @@
 import type { CollectionInterface } from '../interfaces/CollectionInterface';
 import type { RecordInterface } from '../interfaces/RecordInterface';
 
+const slice = [].slice;
+
 export default (Module) => {
   const {
     initializeMixin, meta, method, property, inject,
