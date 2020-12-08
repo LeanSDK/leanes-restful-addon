@@ -14,13 +14,13 @@
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
 export type RouteOptionsT = {
-  to: ?string,
-  at: ?('collection' | 'member'),
-  resource: ?string,
-  action: ?string,
-  tag: ?string,
-  template: ?string,
-  keyName: ?string,
-  entityName: ?string,
-  recordName: ?string
+  to?: ?string,
+  at?: ?('collection' | 'member'),
+  resource?: ?string,
+  action?: ?string,
+  tag?: ?string,
+  template?: ?string,
+  keyName?: ?string,
+  entityName?: ?string,
+  recordName?: ?string
 }
