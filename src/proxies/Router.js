@@ -197,17 +197,17 @@ export default (Module) => {
     @method resource(
       asName: string,
       aoOpts: ?({
-        path: ?string,
-        module: ?string,
-        only: ?(string | string[]),
-        via: ?(string | string[]),
-        except: ?(string | string[]),
-        tag: ?string,
-        templates: ?string,
-        param: ?string,
-        at: ?('collection' | 'member'),
-        resource: ?string,
-        above: ?object
+        path?: ?string,
+        module?: ?string,
+        only?: ?(string | string[]),
+        via?: ?(string | string[]),
+        except?: ?(string | string[]),
+        tag?: ?string,
+        templates?: ?string,
+        param?: ?string,
+        at?: ?('collection' | 'member'),
+        resource?: ?string,
+        above?: ?object
       } | Function) = null,
       lambda: ?Function = null
     ) {
@@ -317,12 +317,12 @@ export default (Module) => {
     @method namespace(
       asName: ?string,
       aoOpts: ({
-        module: ?string,
-        prefix: ?string,
-        tag: ?string,
-        templates: ?string,
-        at: ?('collection' | 'member'),
-        above: ?object
+        module?: ?string,
+        prefix?: ?string,
+        tag?: ?string,
+        templates?: ?string,
+        at?: ?('collection' | 'member'),
+        above?: ?object
       } | Function) = null,
       lambda: ?Function = null
     ) {
