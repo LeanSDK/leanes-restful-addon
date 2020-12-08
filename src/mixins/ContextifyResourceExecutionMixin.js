@@ -18,7 +18,7 @@ import type { MediatorInterface } from '../interfaces/MediatorInterface';
 
 export default (Module) => {
   const {
-    APPLICATION_MEDIATOR, LIGHTWEIGHT,
+    APPLICATION_MEDIATOR, LIGHTWEIGHT, RESOURCE_RESULT,
     initializeMixin, meta, method, property, inject,
   } = Module.NS;
 
