@@ -31,14 +31,14 @@ export default (Module) => {
 
       @method async execute<
         T = any, R = Promise<{|result: T, resource: ResourceInterface|}>
-      >(resourceName: string, {
+      >(resourceName: string, data: {
         context: ContextInterface,
         reverse: string
       }, action: string): Promise<R> {
-        this.context = context;
+        this.context = data.context;
         const appMediator = this.facade.getMediator(APPLICATION_MEDIATOR);
         return await appMediator.execute(
-          resourceName, {context, reverse}, action
+          resourceName, data, action
         );
       }
     }
