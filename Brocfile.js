@@ -12,8 +12,6 @@ const appRoot = __dirname + '/src';
 
 const extensions = [".ts", ".js"];
 
-// TODO: needs to improve this config for precompilation src files to nodejs runtime (not browser)
-
 const dev = new Rollup(appRoot, {
   inputFiles: ["**/*.js"],
   annotation: "leanes-restful-addon",

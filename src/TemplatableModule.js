@@ -35,7 +35,7 @@ export default (Module) => {
         return MClass[cpoTemplates] != null ? MClass[cpoTemplates] : MClass[cpoTemplates] = new Proxy(MClass, MClass[cpmTemplatesHandler]);
       }
 
-      @method static get templates(): {[key: string]: Function} {
+      @property static get templates(): {[key: string]: Function} {
         return this.metaObject.getGroup('templates', false);
       }
 
