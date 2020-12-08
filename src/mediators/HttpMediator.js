@@ -432,7 +432,7 @@ export default (Module) => {
       // return this._renderers[asFormat];
     }
 
-    @method async sendHttpResponse<S = ResourceInterface>(
+    @method async sendHttpResponse<S = object | ResourceInterface>(
       ctx: ContextInterface,
       aoData: ?any,
       resource: S,
@@ -499,7 +499,7 @@ export default (Module) => {
                   return;
                 }
                 try {
-                  await this.sendHttpResponse<object | ResourceInterface>(context, result, resource, opts);
+                  await this.sendHttpResponse(context, result, resource, opts);
                   resolve();
                 } catch (e) {
                   reject(e);
