@@ -49,7 +49,7 @@ export default (Module) => {
       }
 
       @method async execute<
-        T = any, R = Promise<{|result: T, resource: ResourceInterface|}>
+        T = any, R = {|result: T, resource: ResourceInterface|}
       >(resourceName: string, opts: {
         context: ContextInterface,
         reverse: string

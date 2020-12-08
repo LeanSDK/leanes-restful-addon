@@ -30,7 +30,7 @@ export default (Module) => {
       @property context: ?ContextInterface = null;
 
       @method async execute<
-        T = any, R = Promise<{|result: T, resource: ResourceInterface|}>
+        T = any, R = {|result: T, resource: ResourceInterface|}
       >(resourceName: string, data: {
         context: ContextInterface,
         reverse: string
