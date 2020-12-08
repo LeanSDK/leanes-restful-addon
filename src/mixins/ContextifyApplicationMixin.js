@@ -27,7 +27,7 @@ export default (Module) => {
     class Mixin extends BaseClass {
       @meta static object = {};
 
-      @property context: ContextInterface = null;
+      @property context: ?ContextInterface = null;
 
       @method async execute<
         T = any, R = Promise<{|result: T, resource: ResourceInterface|}>
