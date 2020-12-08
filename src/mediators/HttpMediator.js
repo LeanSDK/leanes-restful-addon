@@ -96,9 +96,9 @@ export default (Module) => {
     @property _composed: (ctx: ContextInterface) => Promise<void> = null;
     @property _handler: (req: object, res: object) => Promise<void> = null;
 
-    @property middlewares: Array<(ctx: ContextInterface) => Promise<?boolean>> = null;
+    @property middlewares: Array<?(ctx: ContextInterface) => Promise<?boolean>> = null;
 
-    @property handlers: Array<(ctx: ContextInterface) => Promise<?boolean>> = null;
+    @property handlers: Array<?Array<?(ctx: ContextInterface) => Promise<?boolean>>> = null;
 
     @property get responseFormats(): string[] {
       return ['json', 'html', 'xml', 'atom', 'text'];

@@ -23,10 +23,6 @@ import type {
 } from '../types/RequestT';
 
 export interface HttpMediatorInterface {
-  middlewares: Array<(ctx: ContextInterface) => Promise<?boolean>>;
-
-  handlers: Array<(ctx: ContextInterface) => Promise<?boolean>>;
-
   +responseFormats: string[];
 
   routerName: string;
