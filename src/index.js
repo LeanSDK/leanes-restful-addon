@@ -104,6 +104,7 @@ export default (Module) => {
       @meta static object = {};
 
       @constant NON_OVERRIDDEN = Symbol.for('NON_OVERRIDDEN');
+      @constant NON_RENDERABLE = Symbol.for('NON_RENDERABLE');
       @constant RESOURCE_RESULT =  'RESOURCE_RESULT';
       @constant APPLICATION_ROUTER =  'ApplicationRouter';
       @constant JSON_RENDERER =  'JsonRenderer';

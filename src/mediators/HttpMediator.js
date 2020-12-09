@@ -58,7 +58,7 @@ export default (Module) => {
     // MIGRATIONS,
     APPLICATION_ROUTER,
     // APPLICATION_MEDIATOR,
-    RESOURCE_RESULT,
+    RESOURCE_RESULT, NON_RENDERABLE,
     METHODS,
     JSON_RENDERER,
     Pipes,
@@ -438,6 +438,7 @@ export default (Module) => {
       resource: S,
       opts: RouterRouteT
     ): Promise<void> {
+      if (aoData === NON_RENDERABLE) return;
       if (opts.action === 'create') {
         ctx.status = 201;
       }
