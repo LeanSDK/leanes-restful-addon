@@ -42,6 +42,10 @@ export default function action(target, key, descriptor) {
     value: key,
     configurable: true
   });
+  Reflect.defineProperty(vmFunctor, 'isAsync', {
+    value: true,
+    configurable: true
+  });
   // Reflect.defineProperty(vmFunctor, 'wrapper', {
   //   value: wrapper,
   //   enumerable: true
