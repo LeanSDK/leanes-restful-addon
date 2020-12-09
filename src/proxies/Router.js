@@ -531,7 +531,7 @@ export default (Module) => {
         const vsRecordName = _.isNil(vsAboveName) && !_.isNull(vsAboveName) ? this.defaultEntityName() : vsAboveName;
         if (this._only != null) {
           this._only.forEach((asAction) => {
-            const vsPath = voPaths[asAction] || this._param;
+            const vsPath = voPaths[asAction] != null ? voPaths[asAction] : this._param;
             this.defineMethod(this._pathes, voMethods[asAction], vsPath, {
               action: asAction,
               resource: this._resource || this._name,
@@ -546,7 +546,7 @@ export default (Module) => {
             if (!hasProp.call(voMethods, asAction)) continue;
             const vsMethod = voMethods[asAction];
             if (!this._except.includes('all') && !this._except.includes(asAction)) {
-              const vsPath = voPaths[asAction] || this._param;
+              const vsPath = voPaths[asAction] != null ? voPaths[asAction] : this._param;
               this.defineMethod(this._pathes, vsMethod, vsPath, {
                 action: asAction,
                 resource: this._resource || this._name,
@@ -559,7 +559,7 @@ export default (Module) => {
           }
         } else if (this._via != null) {
           this._via.forEach((asCustomAction) => {
-            const vsPath = voPaths[asCustomAction] || this._param;
+            const vsPath = voPaths[asCustomAction] != null ? voPaths[asCustomAction] : this._param;
             if (asCustomAction === 'all') {
               for (const asAction in voMethods) {
                 if (!hasProp.call(voMethods, asAction)) continue;
@@ -588,7 +588,7 @@ export default (Module) => {
           for (const asAction in voMethods) {
             if (!hasProp.call(voMethods, asAction)) continue;
             const vsMethod = voMethods[asAction];
-            const vsPath = voPaths[asAction] || this._param;
+            const vsPath = voPaths[asAction] != null ? voPaths[asAction] : this._param;
             this.defineMethod(this._pathes, vsMethod, vsPath, {
               action: asAction,
               resource: this._resource || this._name,
