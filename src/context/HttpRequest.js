@@ -121,7 +121,8 @@ export default (Module) => {
       if (this.req == null)
         return '';
       // return parse(this.req).query || '';
-      return parse(this.req) != null ? parse(this.req).query : '';
+      const parsed = parse(this.req);
+      return parsed != null ? (parsed.query || '') : '';
     }
 
     @property set querystring(str: string): string {
