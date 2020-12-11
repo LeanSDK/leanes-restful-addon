@@ -13,7 +13,9 @@
 // You should have received a copy of the GNU Lesser General Public License
 // along with leanes-restful-addon.  If not, see <https://www.gnu.org/licenses/>.
 
-import parse from 'co-body';
+// import parse from 'co-body';
+import rawBody from 'raw-body';
+import inflate from 'inflation';
 
 export default (Module) => {
   const {
@@ -27,11 +29,39 @@ export default (Module) => {
 
       @property withRawBody = false;
 
+      @method _parse(str, {strict}) {
+        // Allowed whitespace is defined in RFC 7159
+        // http://www.rfc-editor.org/rfc/rfc7159.txt
+        const strictJSONReg = /^[\x20\x09\x0a\x0d]*(\[|\{)/;
+        if (!strict) return str ? JSON.parse(str) : str;
+        // strict mode always return object
+        if (!str) return {};
+        // strict JSON test
+        if (!strictJSONReg.test(str)) {
+          throw new SyntaxError('invalid JSON, only supports object and array');
+        }
+        return JSON.parse(str);
+      }
+
       @method async parseBody(...args) {
-        const { parsed, raw } = await parse(this.context.req, {returnRawBody: this.withRawBody});
-        this.context.request.body = parsed;
-        this.context.request.raw = raw;
-        return args;
+        const opts = {};
+        const len = this.context.req.headers['content-length'];
+        const encoding = this.context.req.headers['content-encoding'] || 'identity';
+        if (len && encoding === 'identity') opts.length = ~~len;
+        opts.encoding = 'utf8';
+        opts.limit = '1mb';
+        const strict = true;
+        const str = await rawBody(inflate(req), opts);
+        try {
+          const parsed = this._parse(str, {strict});
+          this.context.request.body = parsed;
+          if (this.withRawBody) this.context.request.raw = str;
+          return args;
+        } catch (err) {
+          err.status = 400;
+          err.body = str;
+          throw err;
+        }
       }
     }
     return Mixin;
