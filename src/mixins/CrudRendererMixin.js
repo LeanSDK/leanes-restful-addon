@@ -69,7 +69,7 @@ export default (Module) => {
 
       @method async itemDecorator(aoData: ?object): Promise<?object> {
         if (aoData != null) {
-          result = JSON.parse(JSON.stringify(aoData));
+          const result = JSON.parse(JSON.stringify(aoData));
           let { createdAt, updatedAt, deletedAt } = aoData;
           createdAt = createdAt && createdAt.toISOString() || null;
           updatedAt = updatedAt && updatedAt.toISOString() || null;
