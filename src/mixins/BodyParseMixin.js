@@ -51,7 +51,7 @@ export default (Module) => {
         opts.encoding = 'utf8';
         opts.limit = '1mb';
         const strict = true;
-        const str = await rawBody(inflate(req), opts);
+        const str = await rawBody(inflate(this.context.req), opts);
         try {
           const parsed = this._parse(str, {strict});
           this.context.request.body = parsed;
