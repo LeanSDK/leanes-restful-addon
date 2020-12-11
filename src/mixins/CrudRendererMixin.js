@@ -77,10 +77,10 @@ export default (Module) => {
           result.createdAt = createdAt;
           result.updatedAt = updatedAt;
           result.deletedAt = deletedAt;
+          return result;
         } else {
-          result = null;
+          return null;
         }
-        return result;
       }
 
       @method async list<
